@@ -38,3 +38,6 @@ next-env.d.ts
 # database
 data/*.db
 data/*.sql
+
+# drizzle: generated sql files (temporarely)
+drizzle
