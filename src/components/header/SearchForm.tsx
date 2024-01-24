@@ -14,6 +14,7 @@ import { useSearchParams } from "next/navigation";
 import Placeholder from "./form/Placeholder";
 import TagBar from "./form/TagBar";
 import ArrowIcons from "./form/ArrowIcons";
+import DeleteTags from "./form/DeleteTags";
 
 export default function SearchForm({
   allTags,
@@ -72,17 +73,15 @@ export default function SearchForm({
           ) : (
             <Placeholder placeholder={placeholder} />
           )}
+
           {stagedTags.length ? (
-            <div
-              className="absolute inset-y-0 end-5 items-center px-2 py-2.5"
-              onClick={(e) => {
-                e.stopPropagation();
+            <DeleteTags
+              onClick={(event) => {
+                event.stopPropagation();
                 setSearchBarState(true);
                 setStagedTags([]);
               }}
-            >
-              <DeleteIcon />
-            </div>
+            />
           ) : null}
           <ArrowIcons isMenuOpen={isSearchBarOpen} />
         </>
