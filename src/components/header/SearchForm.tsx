@@ -16,6 +16,7 @@ import TagBar from "./form/TagBar";
 import ArrowIcons from "./form/ArrowIcons";
 import DeleteTags from "./form/DeleteTags";
 import StagingTag from "./form/StagingTag";
+import ClientSearch from "./form/ClientSearch";
 
 export default function SearchForm({
   allTags,
@@ -79,19 +80,10 @@ export default function SearchForm({
       </TagBar>
       {isSearchBarOpen && (
         <>
-          <div className="flex w-full flex-row border-x border-black">
-            <input
-              type="search"
-              name="clientSearch"
-              className="w-full p-2"
-              placeholder="Search by tags"
-              onChange={(e) => setClientFilterTags(e.target.value)}
-            />
-            <input type="hidden" name="tags" value={stagedTags} />
-            <button type="submit" className="border border-black bg-white p-2">
-              <SearchIcon />
-            </button>
-          </div>
+          <ClientSearch
+            stagedTags={stagedTags}
+            onChange={(e) => setClientFilterTags(e.target.value)}
+          />
           <div className="flex h-max w-full flex-row flex-wrap gap-2 rounded-b border border-black bg-white p-2 ">
             {allTags
               .filter((tag) => !stagedTags.includes(tag.name))
