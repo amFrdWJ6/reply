@@ -1,4 +1,4 @@
-import { InferInsertModel } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import {
   integer,
   primaryKey,
@@ -17,6 +17,7 @@ export const tblTag = sqliteTable("tag", {
   id: integer("id", { mode: "number" }).primaryKey(),
   name: text("name").notNull().unique(),
 });
+export type RTag = InferSelectModel<typeof tblTag>;
 export type WTag = InferInsertModel<typeof tblTag>;
 
 export const tblTagToPost = sqliteTable(
