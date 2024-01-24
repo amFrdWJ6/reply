@@ -41,3 +41,6 @@ data/*.sql
 
 # drizzle: generated sql files (temporarely)
 drizzle
+
+# uploads
+public/uploads/
