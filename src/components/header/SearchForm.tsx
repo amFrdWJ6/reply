@@ -1,7 +1,12 @@
 "use client";
 
 import type { RTag } from "@/lib/db/schema";
-import { ArrowsDownIcon, DeleteIcon, SearchIcon } from "../icons/svg";
+import {
+  ArrowsDownIcon,
+  ArrowsUpIcon,
+  DeleteIcon,
+  SearchIcon,
+} from "../icons/svg";
 import { useFormState } from "react-dom";
 import { handleSearchForm } from "@/lib/actions";
 import { useState } from "react";
@@ -72,7 +77,7 @@ export default function SearchForm({ allTags }: { allTags: RTag[] }) {
           </div>
         ) : null}
         <div className="absolute inset-y-0 end-0 items-center px-2 py-2.5">
-          <ArrowsDownIcon />
+          {isSearchBarOpen ? <ArrowsUpIcon /> : <ArrowsDownIcon />}
         </div>
       </div>
       {isSearchBarOpen && (
