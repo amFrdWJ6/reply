@@ -1,12 +1,6 @@
 "use client";
 
 import type { RTag } from "@/lib/db/schema";
-import {
-  ArrowsDownIcon,
-  ArrowsUpIcon,
-  DeleteIcon,
-  SearchIcon,
-} from "../icons/svg";
 import { useFormState } from "react-dom";
 import { handleSearchForm } from "@/lib/actions";
 import { useState } from "react";
