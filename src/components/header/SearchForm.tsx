@@ -12,7 +12,13 @@ import { handleSearchForm } from "@/lib/actions";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function SearchForm({ allTags }: { allTags: RTag[] }) {
+export default function SearchForm({
+  allTags,
+  placeholder,
+}: {
+  allTags: RTag[];
+  placeholder: string;
+}) {
   const [_, formAction] = useFormState(handleSearchForm, null);
   const [isSearchBarOpen, setSearchBarOpen] = useState<boolean>(false);
   const searchedTags = useSearchParams().get("tags")?.split(",") || [];
@@ -61,7 +67,7 @@ export default function SearchForm({ allTags }: { allTags: RTag[] }) {
           ))
         ) : (
           <p className="absolute inset-y-0 start-0 items-center p-2 text-slate-500">
-            Click me, baby!
+            {placeholder}
           </p>
         )}
         {stagedTags.length ? (
