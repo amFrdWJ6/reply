@@ -11,6 +11,7 @@ import ArrowIcons from "./form/ArrowIcons";
 import DeleteTags from "./form/DeleteTags";
 import StagingTag from "./form/StagingTag";
 import ClientSearch from "./form/ClientSearch";
+import ListedTag from "./form/ListedTag";
 
 export default function SearchForm({
   allTags,
@@ -84,19 +85,17 @@ export default function SearchForm({
               .filter((tag) => tag.name.includes(clientFilterTags))
               .map((tag) =>
                 tag ? (
-                  <span
-                    key={tag.id}
-                    className="rounded bg-slate-500 p-1 text-sm text-white"
+                  <ListedTag
+                    key={tag.name}
+                    tag={tag}
                     onClick={() => {
                       setStagedTags((prev) => [
                         ...new Set([...prev, tag.name]),
                       ]);
                     }}
-                  >
-                    {tag.name}
-                  </span>
+                  />
                 ) : (
-                  <p key="no-more-tags">no more tags</p>
+                  <p key="pica">Picaaa</p>
                 ),
               )}
           </div>
