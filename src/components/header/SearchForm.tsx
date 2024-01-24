@@ -11,6 +11,7 @@ import { useFormState } from "react-dom";
 import { handleSearchForm } from "@/lib/actions";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
+import Placeholder from "./form/Placeholder";
 
 export default function SearchForm({
   allTags,
@@ -67,9 +68,7 @@ export default function SearchForm({
             </div>
           ))
         ) : (
-          <p className="absolute inset-y-0 start-0 items-center p-2 text-slate-500">
-            {placeholder}
-          </p>
+          <Placeholder placeholder={placeholder} />
         )}
         {stagedTags.length ? (
           <div
