@@ -15,6 +15,7 @@ import Placeholder from "./form/Placeholder";
 import TagBar from "./form/TagBar";
 import ArrowIcons from "./form/ArrowIcons";
 import DeleteTags from "./form/DeleteTags";
+import StagingTag from "./form/StagingTag";
 
 export default function SearchForm({
   allTags,
@@ -48,27 +49,17 @@ export default function SearchForm({
         <>
           {stagedTags.length ? (
             stagedTags.map((tag) => (
-              <div key={tag} className="flex flex-row items-center p-1">
-                <span
-                  className=" rounded-l bg-slate-500 p-1 text-sm text-white"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                >
-                  {tag}
-                </span>
-                <button
-                  className="rounded-r bg-slate-500 p-1 text-white"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setStagedTags((prev) => [
-                      ...prev.filter((stagedTag) => stagedTag !== tag),
-                    ]);
-                  }}
-                >
-                  <DeleteIcon />
-                </button>
-              </div>
+              <StagingTag
+                key={tag}
+                tag={tag}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setSearchBarState(true);
+                  setStagedTags((prev) => [
+                    ...prev.filter((stagedTag) => stagedTag !== tag),
+                  ]);
+                }}
+              />
             ))
           ) : (
             <Placeholder placeholder={placeholder} />
