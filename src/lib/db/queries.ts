@@ -21,7 +21,7 @@ export async function GetAllRepliesByTags(tags: Array<string>) {
     .select({
       id: tblReply.id,
       fileName: tblReply.fileName,
-      tags: sql`GROUP_CONCAT(${tblTag.name})`,
+      tags: sql<string>`GROUP_CONCAT(${tblTag.name})`,
     })
     .from(tblTagToPost)
     .innerJoin(tblReply, eq(tblTagToPost.reply_id, tblReply.id))
