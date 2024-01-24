@@ -19,26 +19,27 @@ export default function SearchForm({
   allTags: RTag[];
   placeholder: string;
 }) {
-  const [_, formAction] = useFormState(handleSearchForm, null);
-  const [isSearchBarOpen, setSearchBarOpen] = useState<boolean>(false);
-  const searchedTags = useSearchParams().get("tags")?.split(",") || [];
+  const tagsFromURL = useSearchParams().get("tags")?.split(",") || [];
   const [stagedTags, setStagedTags] = useState<string[]>(
     allTags
-      .filter((tag) => searchedTags.includes(tag.name))
+      .filter((tag) => tagsFromURL.includes(tag.name))
       .map((tag) => tag.name),
   );
-  const [greatFilter, setGreatFilter] = useState<string>("");
+  const [clientFilterTags, setClientFilterTags] = useState<string>("");
+  const [isSearchBarOpen, setSearchBarState] = useState<boolean>(false);
+  const [_, formAction] = useFormState(handleSearchForm, null);
 
   return (
     <form
       action={formAction}
       className="absolute left-1/2 top-0 w-1/2 -translate-x-1/2"
-      onSubmit={() => setSearchBarOpen(false)}
+      onSubmit={() => setSearchBarState(false)}
     >
       <div
         className="relative flex h-10  w-full flex-row rounded-t border border-black bg-white"
         onClick={() => {
-          setSearchBarOpen(!isSearchBarOpen);
+          setSearchBarState(!isSearchBarOpen);
+          setClientFilterTags("");
         }}
       >
         {stagedTags.length ? (
@@ -94,7 +95,7 @@ export default function SearchForm({
               name="clientSearch"
               className="w-full p-2"
               placeholder="Search by tags"
-              onChange={(e) => setGreatFilter(e.target.value)}
+              onChange={(e) => setClientFilterTags(e.target.value)}
             />
             <input type="hidden" name="tags" value={stagedTags} />
             <button type="submit" className="border border-black bg-white p-2">
@@ -104,7 +105,7 @@ export default function SearchForm({
           <div className="flex h-max w-full flex-row flex-wrap gap-2 rounded-b border border-black bg-white p-2 ">
             {allTags
               .filter((tag) => !stagedTags.includes(tag.name))
-              .filter((tag) => tag.name.includes(greatFilter))
+              .filter((tag) => tag.name.includes(clientFilterTags))
               .map((tag) =>
                 tag ? (
                   <span
