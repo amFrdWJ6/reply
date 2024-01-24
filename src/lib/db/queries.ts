@@ -31,6 +31,20 @@ export async function GetAllRepliesByTags(tags: Array<string>) {
     .all();
 }
 
+export async function GetLatestReplies() {
+  return db
+    .select({
+      id: tblReply.id,
+      fileName: tblReply.fileName,
+      tags: sql<string>`GROUP_CONCAT(${tblTag.name})`,
+    })
+    .from(tblTagToPost)
+    .innerJoin(tblReply, eq(tblTagToPost.reply_id, tblReply.id))
+    .innerJoin(tblTag, eq(tblTagToPost.tag_id, tblTag.id))
+    .groupBy(tblReply.id)
+    .all();
+}
+
 export async function GetAllTags() {
   return db.select().from(tblTag).all();
 }
