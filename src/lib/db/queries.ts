@@ -30,3 +30,7 @@ export async function GetAllRepliesByTags(tags: Array<string>) {
     .groupBy(tblReply.id)
     .all();
 }
+
+export async function GetAllTags() {
+  return db.select().from(tblTag).all();
+}
