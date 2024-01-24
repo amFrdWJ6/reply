@@ -59,6 +59,18 @@ export default function SearchForm({ allTags }: { allTags: RTag[] }) {
             Click me, baby!
           </p>
         )}
+        {stagedTags.length ? (
+          <div
+            className="absolute inset-y-0 end-5 items-center px-2 py-2.5"
+            onClick={(e) => {
+              e.stopPropagation();
+              setSearchBarState(true);
+              setStagedTags([]);
+            }}
+          >
+            <DeleteIcon />
+          </div>
+        ) : null}
         <div className="absolute inset-y-0 end-0 items-center px-2 py-2.5">
           <ArrowsDownIcon />
         </div>
