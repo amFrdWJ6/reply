@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Placeholder from "./form/Placeholder";
 import TagBar from "./form/TagBar";
+import ArrowIcons from "./form/ArrowIcons";
 
 export default function SearchForm({
   allTags,
@@ -83,9 +84,7 @@ export default function SearchForm({
               <DeleteIcon />
             </div>
           ) : null}
-          <div className="absolute inset-y-0 end-0 items-center px-2 py-2.5">
-            {isSearchBarOpen ? <ArrowsUpIcon /> : <ArrowsDownIcon />}
-          </div>
+          <ArrowIcons isMenuOpen={isSearchBarOpen} />
         </>
       </TagBar>
       {isSearchBarOpen && (
