@@ -47,6 +47,14 @@ export async function GetLatestReplies() {
     .all();
 }
 
+export async function CreateTag(tags: { name: string }[]) {
+  try {
+    db.insert(tblTag).values(tags).run();
+  } catch (error) {
+    console.log("");
+  }
+}
+
 export async function GetAllTags() {
   return db.select().from(tblTag).all();
 }
