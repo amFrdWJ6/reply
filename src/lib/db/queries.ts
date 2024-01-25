@@ -20,6 +20,7 @@ export async function GetAllRepliesByTags(tags: Array<string>) {
   return db
     .select({
       id: tblReply.id,
+      title: tblReply.title,
       fileName: tblReply.fileName,
       tags: sql<string>`GROUP_CONCAT(${tblTag.name})`,
     })
@@ -35,6 +36,7 @@ export async function GetLatestReplies() {
   return db
     .select({
       id: tblReply.id,
+      title: tblReply.title,
       fileName: tblReply.fileName,
       tags: sql<string>`GROUP_CONCAT(${tblTag.name})`,
     })
