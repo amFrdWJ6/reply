@@ -16,6 +16,10 @@ export async function GetAllRepliesByTags(tags: Array<string>) {
     .all()
     .map((reply) => reply.id);
 
+  if (replyIDs.length == 0) {
+    return null;
+  }
+
   // Get reply rows with their tags
   return db
     .select({
