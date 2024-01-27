@@ -33,7 +33,7 @@ export default function SearchForm({
   return (
     <form
       action={formAction}
-      className="absolute left-1/2 top-0 z-50 w-1/2 -translate-x-1/2"
+      className="absolute left-1/2 top-1 z-50 w-full max-w-64 -translate-x-1/2 sm:max-w-md md:max-w-lg"
       onSubmit={() => setSearchBarState(false)}
     >
       <TagBar
@@ -41,6 +41,7 @@ export default function SearchForm({
           setSearchBarState(!isSearchBarOpen);
           setClientFilterTags("");
         }}
+        isSearchBarOpen={isSearchBarOpen}
       >
         <>
           {stagedTags.length ? (
@@ -61,16 +62,18 @@ export default function SearchForm({
             <Placeholder placeholder={placeholder} />
           )}
 
-          {stagedTags.length ? (
-            <DeleteTags
-              onClick={(event) => {
-                event.stopPropagation();
-                setSearchBarState(true);
-                setStagedTags([]);
-              }}
-            />
-          ) : null}
-          <ArrowIcons isMenuOpen={isSearchBarOpen} />
+          <div className="absolute inset-y-0 end-0 flex flex-row items-center px-2 py-2.5">
+            {stagedTags.length ? (
+              <DeleteTags
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setSearchBarState(true);
+                  setStagedTags([]);
+                }}
+              />
+            ) : null}
+            <ArrowIcons isMenuOpen={isSearchBarOpen} />
+          </div>
         </>
       </TagBar>
       {isSearchBarOpen && (
@@ -79,7 +82,7 @@ export default function SearchForm({
             stagedTags={stagedTags}
             onChange={(e) => setClientFilterTags(e.target.value)}
           />
-          <div className="flex h-max w-full flex-row flex-wrap gap-2 rounded-b border border-black bg-white p-2 ">
+          <div className="border-tertiary bg-secondary flex h-max w-full flex-row flex-wrap gap-2 rounded-b border p-2 ">
             {allTags
               .filter((tag) => !stagedTags.includes(tag.name))
               .filter((tag) => tag.name.includes(clientFilterTags))

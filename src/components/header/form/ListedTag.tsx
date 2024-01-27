@@ -8,7 +8,7 @@ export default function ListedTag({
   return (
     <span
       key={tag.id}
-      className="rounded bg-slate-500 p-1 text-sm text-white"
+      className="bg-primary text-quaternary rounded p-1 text-sm"
       onClick={onClick}
     >
       {tag.name}
