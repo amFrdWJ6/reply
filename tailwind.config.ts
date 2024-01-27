@@ -13,6 +13,12 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        primary: "#ED7D31",
+        secondary: "#6C5F5B",
+        tertiary: "#4F4A45",
+        quaternary: "#F6F1EE",
+      },
     },
   },
   plugins: [],
