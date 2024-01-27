@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useFormState } from "react-dom";
 import { handleTagForm } from "@/lib/actions";
-import { SearchIcon } from "../icons/svg";
 import StagingTag from "../header/form/StagingTag";
 
 export default function TagForm() {
