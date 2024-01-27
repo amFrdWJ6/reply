@@ -48,7 +48,7 @@ export default function SearchForm({
         }}
         isSearchBarOpen={isSearchBarOpen}
       >
-        <>
+        <div className="flex w-[calc(100%-54px)] overflow-hidden overflow-x-auto">
           {stagedTags.length ? (
             stagedTags.map((tag) => (
               <StagingTag
@@ -79,7 +79,7 @@ export default function SearchForm({
             ) : null}
             <ArrowIcons isMenuOpen={isSearchBarOpen} />
           </div>
-        </>
+        </div>
       </TagBar>
       {isSearchBarOpen && (
         <>
