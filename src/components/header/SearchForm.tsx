@@ -4,7 +4,7 @@ import type { RTag } from "@/lib/db/schema";
 import { useFormState } from "react-dom";
 import { handleSearchForm } from "@/lib/actions";
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import Placeholder from "./form/Placeholder";
 import TagBar from "./form/TagBar";
 import ArrowIcons from "./form/ArrowIcons";
@@ -29,6 +29,11 @@ export default function SearchForm({
   const [clientFilterTags, setClientFilterTags] = useState<string>("");
   const [isSearchBarOpen, setSearchBarState] = useState<boolean>(false);
   const [_, formAction] = useFormState(handleSearchForm, null);
+
+  const pathname = usePathname();
+  if (pathname != "/") {
+    return null;
+  }
 
   return (
     <form
