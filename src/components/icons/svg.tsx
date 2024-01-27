@@ -17,12 +17,18 @@ export function SearchIcon() {
   );
 }
 
-export function DeleteIcon({ color = "#4F4A45" }: { color?: string }) {
+export function DeleteIcon({
+  color = "#4F4A45",
+  size = 20,
+}: {
+  color?: string;
+  size?: number;
+}) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
+      width={size}
+      height={size}
       viewBox="0 0 24 24"
       fill="none"
       stroke={color}
