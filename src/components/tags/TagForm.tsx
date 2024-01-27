@@ -39,7 +39,9 @@ export default function TagForm() {
           onKeyDown={(event) => {
             if (event.key == "Enter") {
               event.preventDefault();
-              setStagedTags((prev) => [...new Set([...prev, inputTag])]);
+              if (/^[a-z_]+$/.test(inputTag) && !/\s/.test(inputTag)) {
+                setStagedTags((prev) => [...new Set([...prev, inputTag])]);
+              }
               setInputTag("");
             }
           }}
