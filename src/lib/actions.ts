@@ -41,3 +41,5 @@ export async function handleTagForm(prev: any, formData: FormData) {
   revalidatePath("/tags");
   redirect(`/tags`);
 }
+
+export async function handleUploadForm(prev: any, formData: FormData) {}
