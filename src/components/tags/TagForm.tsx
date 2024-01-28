@@ -13,7 +13,7 @@ export default function TagForm() {
   return (
     <form
       action={formAction}
-      className="w-full"
+      className="w-full shadow-lg"
       onSubmit={() => setStagedTags([])}
     >
       <h1 className="text-2xl text-tertiary">Form:</h1>

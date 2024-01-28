@@ -38,7 +38,7 @@ export default function SearchForm({
   return (
     <form
       action={formAction}
-      className="absolute left-1/2 top-1 z-50 w-full max-w-64 -translate-x-1/2 sm:max-w-md md:max-w-lg"
+      className="absolute left-1/2 top-1 z-50 w-full max-w-64 -translate-x-1/2 shadow-lg sm:max-w-md md:max-w-lg"
       onSubmit={() => setSearchBarState(false)}
     >
       <TagBar

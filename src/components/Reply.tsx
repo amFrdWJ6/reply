@@ -15,7 +15,10 @@ export default async function Reply({
   const src_path = await ImageLoader(reply.fileName, 300, 75);
 
   return (
-    <figure key={reply.id} className="relative h-auto w-64 break-inside-avoid">
+    <figure
+      key={reply.id}
+      className="relative h-auto w-64 break-inside-avoid shadow-lg"
+    >
       <figcaption className="absolute top-0 w-full overflow-hidden truncate text-nowrap bg-primary p-1 text-sm">
         {reply.title}
       </figcaption>
