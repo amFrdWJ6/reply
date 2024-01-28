@@ -62,7 +62,7 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
       className="flex w-full flex-col items-center gap-4"
     >
       <div className="flex flex-col items-center gap-4">
-        <ul className="flex flex-row">
+        <ul className="flex flex-row shadow-xl">
           <li
             className={`${fromSource === FromSourceState.FROMDISC ? "bg-primary" : "bg-secondary"} rounded-l-lg p-2 text-quaternary`}
             onClick={() => {
