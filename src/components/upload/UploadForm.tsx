@@ -61,7 +61,7 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
       action={formAction}
       className="flex w-full flex-col items-center gap-4"
     >
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex w-1/2 flex-col items-center gap-4">
         <ul className="flex flex-row shadow-xl">
           <li
             className={`${fromSource === FromSourceState.FROMDISC ? "bg-primary" : "bg-secondary"} rounded-l-lg p-2 text-quaternary`}
@@ -81,14 +81,14 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
           </li>
         </ul>
 
-        <div>
+        <div className="w-full">
           {fromSource === FromSourceState.FROMDISC ? (
             <>
               <label className="sr-only" htmlFor="upload">
                 Upload file
               </label>
               <input
-                className="block w-full cursor-pointer rounded-lg  bg-secondary text-quaternary focus:outline-none"
+                className="block w-full cursor-pointer rounded-lg bg-secondary text-quaternary file:border-0 file:bg-primary file:p-2"
                 aria-describedby="upload_help"
                 id="upload"
                 type="file"
@@ -104,7 +104,18 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
               </p>
             </>
           ) : (
-            <input type="url" name="url" />
+            <>
+              <input
+                type="url"
+                name="url"
+                aria-describedby="url_help"
+                placeholder="http://urfavsite.dev/hilariousmeme.webp"
+                className="w-full rounded-md bg-secondary p-2 placeholder:text-quaternary focus:outline-none focus:ring-0"
+              />
+              <p className="text-center text-sm text-secondary" id="url_help">
+                {allowedFormats}
+              </p>
+            </>
           )}
         </div>
       </div>
