@@ -16,8 +16,8 @@ export default function TagForm() {
       className="w-full"
       onSubmit={() => setStagedTags([])}
     >
-      <h1 className="text-tertiary text-2xl">Form:</h1>
-      <div className="bg-tertiary text-quaternary rounded-t p-2">
+      <h1 className="text-2xl text-tertiary">Form:</h1>
+      <div className="rounded-t bg-tertiary p-2 text-quaternary">
         <h1 className="text-primary">Rules:</h1>
         <ul className="list-inside list-decimal">
           <li>lowercase strings only</li>
@@ -28,14 +28,14 @@ export default function TagForm() {
       </div>
       <div className="flex w-full flex-row">
         <div
-          className={`flex h-10 w-10 items-center justify-center ${stagedTags.length == 0 ? "rounded-bl" : null} text-tertiary bg-white text-3xl`}
+          className={`${stagedTags.length == 0 ? "rounded-bl" : null} flex h-10 w-10 items-center justify-center bg-white text-3xl text-tertiary`}
         >
           #
         </div>
         <input
           type="text"
           name="clientForm"
-          className="placeholder:text-tertiary h-10 w-full p-2"
+          className="h-10 w-full p-2 placeholder:text-tertiary"
           placeholder="Type tag here; Hit Enter; Repeat; Submit;"
           value={inputTag}
           onChange={(event) => {
@@ -53,7 +53,7 @@ export default function TagForm() {
         />
         <button
           type="submit"
-          className={`bg-primary text-tertiary flex h-10 w-32 items-center justify-center ${stagedTags.length == 0 ? "rounded-br" : null}`}
+          className={`${stagedTags.length == 0 ? "rounded-br" : null} flex h-10 w-32 items-center justify-center bg-primary text-tertiary`}
         >
           Submit tags
         </button>
@@ -61,8 +61,8 @@ export default function TagForm() {
       <input type="hidden" name="tags" value={stagedTags} />
 
       {stagedTags.length > 0 && (
-        <div className="bg-primary flex flex-col  rounded-b p-2 text-white">
-          <h1 className=" text-tertiary text-2xl">Staged tags:</h1>
+        <div className="flex flex-col rounded-b bg-primary p-2 text-white">
+          <h1 className=" text-2xl text-tertiary">Staged tags:</h1>
           <div className="flex flex-row flex-wrap gap-2">
             {stagedTags.map((tag) => (
               <StagingTag

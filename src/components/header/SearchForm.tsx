@@ -87,7 +87,7 @@ export default function SearchForm({
             stagedTags={stagedTags}
             onChange={(e) => setClientFilterTags(e.target.value)}
           />
-          <div className="border-tertiary bg-secondary flex h-max w-full flex-row flex-wrap gap-2 rounded-b border p-2 ">
+          <div className="flex h-max w-full flex-row flex-wrap gap-2 rounded-b border border-tertiary bg-secondary p-2">
             {allTags
               .filter((tag) => !stagedTags.includes(tag.name))
               .filter((tag) => tag.name.includes(clientFilterTags))

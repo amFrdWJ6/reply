@@ -11,7 +11,7 @@ export default function TagBar({
 }) {
   return (
     <div
-      className={`relative flex h-10 w-full flex-row overflow-hidden ${isSearchBarOpen ? "rounded-t" : "rounded"} border-tertiary bg-primary text-quaternary border`}
+      className={`${isSearchBarOpen ? "rounded-t" : "rounded"} relative flex h-10 w-full flex-row overflow-hidden border border-tertiary bg-primary text-quaternary`}
       onClick={onClick}
     >
       {children}

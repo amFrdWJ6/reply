@@ -3,14 +3,14 @@ export default function Figure({ tags }: { tags: Array<string> }) {
     <a
       href={`/?tags=${tag}`}
       key={tag}
-      className="bg-secondary text-quaternary p-1  text-xs"
+      className="bg-secondary p-1 text-xs text-quaternary"
     >
       {tag}
     </a>
   ));
 
   return (
-    <div className="bg-tertiary flex flex-row flex-wrap gap-2 p-2">
+    <div className="flex flex-row flex-wrap gap-2 bg-tertiary p-2">
       {listTags}
     </div>
   );

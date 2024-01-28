@@ -11,7 +11,7 @@ export default async function Tags() {
     .map((tag) => (
       <span
         key={tag.id}
-        className="bg-primary border-secondary text-tertiary rounded-sm border p-1"
+        className="rounded-sm border border-secondary bg-primary p-1 text-tertiary"
       >
         {tag.name}
       </span>
@@ -21,7 +21,7 @@ export default async function Tags() {
     <>
       <div className="flex flex-row">
         <div className="flex w-full flex-col">
-          <h1 className="text-tertiary text-2xl">Available tags:</h1>
+          <h1 className="text-2xl text-tertiary">Available tags:</h1>
           <div className="flex flex-row flex-wrap gap-2 p-2">{listTags}</div>
         </div>
         <div className="w-20 md:hidden"></div>

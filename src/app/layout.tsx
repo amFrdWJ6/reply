@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${lato.className} bg-quaternary flex w-full flex-col items-center justify-center`}
+        className={`${lato.className} flex w-full flex-col items-center justify-center bg-quaternary`}
       >
         <Header />
         <main className="z-0 flex w-full max-w-5xl flex-col items-center justify-center p-2">

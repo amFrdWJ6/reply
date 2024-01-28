@@ -15,7 +15,7 @@ export default function Footer({
 
   return (
     <>
-      <div className="bg-tertiary text-primary flex flex-row justify-between px-2 py-1">
+      <div className="flex flex-row justify-between bg-tertiary px-2 py-1 text-primary">
         <CopyToClipboard url={url} />
 
         <button onClick={() => setTagsState(!areTagsOpen)}>Show Tags</button>

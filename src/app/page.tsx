@@ -31,7 +31,7 @@ export default async function Home({
   if (replies == null) {
     return (
       <p className="text-tertiary">
-        H-h. There is a <span className="text-primary text-6xl">null</span> of
+        H-h. There is a <span className="text-6xl text-primary">null</span> of
         replies with those tags.
         <p>Did you break it ?! ಠ_ಠ</p>
       </p>

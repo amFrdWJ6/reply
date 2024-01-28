@@ -26,7 +26,7 @@ export default function NavMenu() {
   return (
     <nav className="absolute right-1 top-2 flex flex-row items-center gap-2">
       <div
-        className="border-primary flex flex-col rounded-md border-2 md:hidden"
+        className="flex flex-col rounded-md border-2 border-primary md:hidden"
         onClick={() => setMenuState(!isMenuOpen)}
       >
         {isMenuOpen ? (

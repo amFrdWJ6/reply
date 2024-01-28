@@ -10,14 +10,14 @@ export default function StagingTag({
   return (
     <div key={tag} className="flex flex-row items-center p-1">
       <span
-        className="bg-secondary text-quaternary rounded-l p-1 text-sm"
+        className="rounded-l bg-secondary p-1 text-sm text-quaternary"
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
         {tag}
       </span>
-      <div className="bg-tertiary rounded-r p-1 text-white" onClick={onClick}>
+      <div className="rounded-r bg-tertiary p-1 text-white" onClick={onClick}>
         <DeleteIcon color="#ED7D31" />
       </div>
     </div>

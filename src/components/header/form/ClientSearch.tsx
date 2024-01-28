@@ -9,11 +9,11 @@ export default function ClientSearch({
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
-    <div className="border-tertiary flex w-full flex-row  border-x">
+    <div className="flex w-full flex-row border-x  border-tertiary">
       <input
         type="search"
         name="clientSearch"
-        className="bg-quaternary w-full p-2"
+        className="w-full bg-quaternary p-2"
         placeholder="Search by tags"
         onChange={onChange}
       />
