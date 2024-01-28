@@ -18,6 +18,7 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
   );
   const [stagedTags, setStagedTags] = useState<Array<string>>([]);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedURL, setSelectedURL] = useState<string>("");
   const [isError, setError] = useState<boolean>(false);
 
   const allowedFormats = getAllowedFormats();
@@ -56,6 +57,10 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
     }
   };
 
+  const handleURLInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setSelectedURL(event.target.value);
+  };
+
   return (
     <form
       action={formAction}
@@ -88,11 +93,13 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
                 Upload file
               </label>
               <input
-                className="block w-full cursor-pointer rounded-lg bg-secondary text-quaternary file:border-0 file:bg-primary file:p-2"
-                aria-describedby="upload_help"
-                id="upload"
                 type="file"
+                name="upload"
+                id="upload"
+                aria-describedby="upload_help"
                 onChange={handleFileInput}
+                className="block w-full cursor-pointer rounded-lg bg-secondary text-quaternary file:border-0 file:bg-primary file:p-2"
+                required
               />
               <p
                 className={`${isError ? "text-xl text-red-500" : "text-sm text-secondary"} text-center`}
@@ -105,12 +112,18 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
             </>
           ) : (
             <>
+              <label className="sr-only" htmlFor="url">
+                URL for image to upload
+              </label>
               <input
                 type="url"
-                name="url"
+                name="upload"
+                id="url"
                 aria-describedby="url_help"
+                onChange={handleURLInput}
                 placeholder="http://urfavsite.dev/hilariousmeme.webp"
                 className="w-full rounded-md bg-secondary p-2 placeholder:text-quaternary focus:outline-none focus:ring-0"
+                required
               />
               <p className="text-center text-sm text-secondary" id="url_help">
                 {allowedFormats}
@@ -146,10 +159,12 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
 
       <button
         type="submit"
-        className={`${stagedTags.length == 0 || selectedFile == null ? "bg-secondary" : "bg-primary"} rounded-xl p-4 text-xl shadow-xl`}
-        disabled={stagedTags.length == 0 || selectedFile == null}
+        className={`${stagedTags.length == 0 || (selectedFile == null && selectedURL == "") ? "bg-secondary" : "bg-primary"} rounded-xl p-4 text-xl shadow-xl`}
+        disabled={
+          stagedTags.length == 0 || (selectedFile == null && selectedURL == "")
+        }
       >
-        {stagedTags.length == 0 || selectedFile == null
+        {stagedTags.length == 0 || (selectedFile == null && selectedURL == "")
           ? "Choose a file & tags"
           : "Upload a new reply!"}
       </button>
