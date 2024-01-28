@@ -2,7 +2,8 @@
 
 import { handleUploadForm } from "@/lib/actions";
 import { RTag } from "@/lib/db/schema";
-import { ChangeEvent, useRef, useState } from "react";
+import { getAllowedFormats, isFormatAllowed } from "@/lib/utils";
+import { ChangeEvent, useState } from "react";
 import { useFormState } from "react-dom";
 
 enum FromSourceState {
@@ -17,7 +18,9 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
   );
   const [stagedTags, setStagedTags] = useState<Array<string>>([]);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isError, setError] = useState<boolean>(false);
 
+  const allowedFormats = getAllowedFormats();
   const availableTags = allTags
     .filter((tag) => !stagedTags.includes(tag.name))
     .map((tag) => (
@@ -42,7 +45,12 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
     const fileInput = event.target;
     if (fileInput.files && fileInput.files.length > 0) {
       const file = fileInput.files[0];
-      setSelectedFile(file);
+      if (isFormatAllowed(file)) {
+        setSelectedFile(file);
+      } else {
+        event.target.value = "";
+        setError(true);
+      }
     } else {
       setSelectedFile(null);
     }
@@ -86,8 +94,13 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
                 type="file"
                 onChange={handleFileInput}
               />
-              <p className=" text-sm text-secondary" id="upload_help">
-                WebP, PNG, JPG or GIF (MAX. 800x400px).
+              <p
+                className={`${isError ? "text-xl text-red-500" : "text-sm text-secondary"} text-center`}
+                id="upload_help"
+              >
+                {isError
+                  ? [">".repeat(5), allowedFormats, "<".repeat(5)].join(" ")
+                  : allowedFormats}
               </p>
             </>
           ) : (
