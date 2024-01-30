@@ -21,6 +21,11 @@ export function isFileFormatAllowed(file: File) {
   );
 }
 
+export function isURLFileFormatAllowed(file: string) {
+  const format = file.split(".").pop();
+  return format ? allowed_file_formats.has(format) : false;
+}
+
 export function getAllowedFormats() {
   return Array.from(allowed_file_formats.values())
     .map((format) => format.split("/")[1])
