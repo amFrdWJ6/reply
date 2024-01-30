@@ -20,8 +20,8 @@ export const tblTag = sqliteTable("tag", {
 export type RTag = InferSelectModel<typeof tblTag>;
 export type WTag = InferInsertModel<typeof tblTag>;
 
-export const tblTagToPost = sqliteTable(
-  "tag_top_post",
+export const tblTagToReply = sqliteTable(
+  "tag_top_reply",
   {
     reply_id: integer("reply_id", { mode: "number" })
       .notNull()
@@ -33,10 +33,10 @@ export const tblTagToPost = sqliteTable(
   (tbl) => {
     return {
       pk: primaryKey({
-        name: "tag_to_post_PK",
+        name: "tag_to_reply_PK",
         columns: [tbl.reply_id, tbl.tag_id],
       }),
     };
   },
 );
-export type WTagToPost = InferInsertModel<typeof tblTagToPost>;
+export type WTagToReply = InferInsertModel<typeof tblTagToReply>;

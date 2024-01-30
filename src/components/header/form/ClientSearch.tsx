@@ -13,7 +13,7 @@ export default function ClientSearch({
       <input
         type="search"
         name="clientSearch"
-        className="w-full bg-quaternary p-2"
+        className="w-full bg-quaternary p-2 focus:outline-none focus:ring-0"
         placeholder="Search by tags"
         onChange={onChange}
       />

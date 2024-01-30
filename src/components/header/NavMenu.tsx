@@ -24,7 +24,7 @@ export default function NavMenu() {
     </Link>
   ));
   return (
-    <nav className="absolute right-1 top-2 flex flex-row items-center gap-2">
+    <nav className="relative right-1 top-2 flex flex-row items-center gap-2">
       <div
         className="flex flex-col rounded-md border-2 border-primary md:hidden"
         onClick={() => setMenuState(!isMenuOpen)}

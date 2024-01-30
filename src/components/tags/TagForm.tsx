@@ -35,7 +35,7 @@ export default function TagForm() {
         <input
           type="text"
           name="clientForm"
-          className="h-10 w-full p-2 placeholder:text-tertiary"
+          className="h-10 w-full p-2 placeholder:text-tertiary focus:outline-none focus:ring-0"
           placeholder="Type tag here; Hit Enter; Repeat; Submit;"
           value={inputTag}
           onChange={(event) => {
