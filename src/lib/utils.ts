@@ -1,6 +1,10 @@
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import fs from "fs";
-import { allowed_file_formats } from "./const";
+import {
+  DOWNLOAD_TIMEOUT,
+  MAX_FILE_SIZE_BYTES,
+  allowed_file_formats,
+} from "./const";
 import { unlink } from "fs/promises";
 
 export async function ImageLoader(
@@ -23,70 +27,77 @@ export function getAllowedFormats() {
     .join(" / ");
 }
 
-export const MAX_FILE_SIZE_BYTES = 4 * 1024 * 1024;
+// Download
+type DownloadResultSuccess = { type: "success"; filePath: string };
+type DownloadResultError = { type: "error"; message: string };
 
-async function checkContentLength(url: string) {
-  await fetch(url, { method: "HEAD" })
-    .then((response) => {
-      try {
-        const contentLength = response.headers.get("content-length");
-        if (contentLength && parseInt(contentLength) > MAX_FILE_SIZE_BYTES) {
-          throw new Error("HEAD: File size exceeds the maximum allowed size.");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    })
-    .catch((response) => {
-      throw new Error(
-        `HEAD: Failed to get file information. Status: ${response.status}`,
-      );
-    });
-  // if (!response.ok) {
-  //   throw new Error(
-  //     `HEAD: Failed to get file information. Status: ${response.status}`,
-  //   );
-  // }
-  // const contentLength = response.headers.get("content-length");
-  // if (contentLength && parseInt(contentLength) > MAX_FILE_SIZE_BYTES) {
-  //   throw new Error("HEAD: File size exceeds the maximum allowed size.");
-  // }
-}
+const isAxiosTimeoutError = (error: any): error is AxiosError => {
+  return axios.isAxiosError(error) && error.code === "ECONNABORTED";
+};
 
-export async function DownloadFile(url: string, destSrc: string) {
+export async function DownloadFile(
+  url: string,
+  destDir: string,
+): Promise<DownloadResultSuccess | DownloadResultError> {
+  const controller = new AbortController();
+  const signal = controller.signal;
+  const fileName = "img6.jpg"; // TODO: change to UUID when dev-upload is not WIP
+  const destPath = `${destDir}/${fileName}`;
+  const destStream = fs.createWriteStream(destPath);
+  let receivedBytes = 0;
+
   try {
-    // checkContentLength(url);
+    const response: AxiosResponse<NodeJS.ReadableStream> = await axios.get(
+      url,
+      { responseType: "stream", signal, timeout: DOWNLOAD_TIMEOUT },
+    );
 
-    const response = await axios({
-      method: "get",
-      url: url,
-      responseType: "stream",
-    });
-
-    const destStream = fs.createWriteStream(destSrc);
-    let receivedSize = 0;
     response.data.on("data", (chunk: Buffer) => {
-      receivedSize += chunk.length;
+      receivedBytes += chunk.length;
 
-      console.log(receivedSize);
-
-      if (receivedSize > MAX_FILE_SIZE_BYTES) {
-        destStream.destroy();
-        unlink(destSrc);
-        throw new Error(
-          "File size exceeds the maximum allowed size during download.",
-        );
+      if (receivedBytes > MAX_FILE_SIZE_BYTES) {
+        controller.abort();
       }
     });
 
     response.data.pipe(destStream);
 
-    await new Promise<void>((resolve, reject) => {
-      response.data.on("end", resolve);
-      destStream.on("error", reject);
+    const downloadPromise = new Promise<
+      DownloadResultSuccess | DownloadResultError
+    >((resolve, reject) => {
+      destStream.on("finish", () => {
+        resolve({ type: "success", filePath: destPath });
+      });
+
+      signal.addEventListener("abort", () => {
+        destStream.destroy();
+        unlink(destPath);
+        reject({
+          type: "error",
+          message: "Download aborted due to exceeding file size limit.",
+        });
+      });
+
+      destStream.on("error", (error) => {
+        console.error("Error writing to destination stream:", error.message);
+        // unlink(destPath);
+        reject({
+          type: "error",
+          message: "An error occurred during file writing.",
+        });
+      });
     });
-    console.log(`File downloaded successfully and saved at: ${destSrc}`);
+
+    await Promise.all([downloadPromise]);
+
+    return downloadPromise;
   } catch (error) {
-    console.error("Error downloading file:", error.message);
+    if (isAxiosTimeoutError(error)) {
+      await unlink(destPath);
+    }
+    return {
+      type: "error",
+      message: (error as Error).message || "An unexpected error",
+    };
   }
 }
