@@ -62,3 +62,38 @@ export async function CreateTag(tags: { name: string }[]) {
 export async function GetAllTags() {
   return db.select().from(tblTag).all();
 }
+
+export async function GetTagsIDs(tags: string[]) {
+  return db.select().from(tblTag).where(inArray(tblTag.name, tags)).all();
+}
+
+export async function CreateReply(title: string, filePath: string) {
+  const newReply: WReply = {
+    title: title,
+    fileName: filePath,
+  };
+
+  try {
+    const res = db
+      .insert(tblReply)
+      .values(newReply)
+      .returning({ id: tblReply.id })
+      .get();
+    return res;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+export async function AddTagsToReply(reply_id: number, tags: RTag[]) {
+  const newTagsToReply: WTagToReply[] = tags.map((tag) => {
+    return { reply_id: reply_id, tag_id: tag.id };
+  });
+
+  try {
+    db.insert(tblTagToReply).values(newTagsToReply).run();
+  } catch (error) {
+    console.log(error);
+  }
+}
