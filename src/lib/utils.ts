@@ -33,8 +33,8 @@ export function getAllowedFormats() {
 }
 
 // Download
-type DownloadResultSuccess = { type: "success"; filePath: string };
-type DownloadResultError = { type: "error"; message: string };
+type ResultSuccess = { type: "success"; fileName: string };
+type ResultError = { type: "error"; message: string };
 
 const isAxiosTimeoutError = (error: any): error is AxiosError => {
   return axios.isAxiosError(error) && error.code === "ECONNABORTED";
@@ -43,7 +43,7 @@ const isAxiosTimeoutError = (error: any): error is AxiosError => {
 export async function DownloadFile(
   url: string,
   destDir: string,
-): Promise<DownloadResultSuccess | DownloadResultError> {
+): Promise<ResultSuccess | ResultError> {
   const controller = new AbortController();
   const signal = controller.signal;
   const fileName = "img6.jpg"; // TODO: change to UUID when dev-upload is not WIP
@@ -67,31 +67,31 @@ export async function DownloadFile(
 
     response.data.pipe(destStream);
 
-    const downloadPromise = new Promise<
-      DownloadResultSuccess | DownloadResultError
-    >((resolve, reject) => {
-      destStream.on("finish", () => {
-        resolve({ type: "success", filePath: destPath });
-      });
-
-      signal.addEventListener("abort", () => {
-        destStream.destroy();
-        unlink(destPath);
-        reject({
-          type: "error",
-          message: "Download aborted due to exceeding file size limit.",
+    const downloadPromise = new Promise<ResultSuccess | ResultError>(
+      (resolve, reject) => {
+        destStream.on("finish", () => {
+          resolve({ type: "success", fileName: fileName });
         });
-      });
 
-      destStream.on("error", (error) => {
-        console.error("Error writing to destination stream:", error.message);
-        // unlink(destPath);
-        reject({
-          type: "error",
-          message: "An error occurred during file writing.",
+        signal.addEventListener("abort", () => {
+          destStream.destroy();
+          unlink(destPath);
+          reject({
+            type: "error",
+            message: "Download aborted due to exceeding file size limit.",
+          });
         });
-      });
-    });
+
+        destStream.on("error", (error) => {
+          console.error("Error writing to destination stream:", error.message);
+          // unlink(destPath);
+          reject({
+            type: "error",
+            message: "An error occurred during file writing.",
+          });
+        });
+      },
+    );
 
     await Promise.all([downloadPromise]);
 
