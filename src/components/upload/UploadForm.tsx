@@ -2,7 +2,7 @@
 
 import { handleUploadForm } from "@/lib/actions";
 import { RTag } from "@/lib/db/schema";
-import { getAllowedFormats, isFormatAllowed } from "@/lib/utils";
+import { getAllowedFormats, isFileFormatAllowed } from "@/lib/utils";
 import { ChangeEvent, useState } from "react";
 import { useFormState } from "react-dom";
 
@@ -46,7 +46,7 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
     const fileInput = event.target;
     if (fileInput.files && fileInput.files.length > 0) {
       const file = fileInput.files[0];
-      if (isFormatAllowed(file)) {
+      if (isFileFormatAllowed(file)) {
         setSelectedFile(file);
       } else {
         event.target.value = "";

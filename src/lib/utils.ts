@@ -15,7 +15,7 @@ export async function ImageLoader(
   return `http://localhost:3000/uploads/${src}?w=${width}&q=${quality}`;
 }
 
-export function isFormatAllowed(file: File) {
+export function isFileFormatAllowed(file: File) {
   return Array.from(allowed_file_formats.values()).some(
     (item) => item === file.type,
   );
