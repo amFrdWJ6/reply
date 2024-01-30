@@ -1,6 +1,8 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
+import { unlink } from "fs/promises";
 import {
   AddTagsToReply,
   CreateReply,
@@ -8,7 +10,6 @@ import {
   GetAllTags,
   GetTagsIDs,
 } from "./db/queries";
-import { revalidatePath } from "next/cache";
 import {
   DownloadFile,
   UploadFile,
@@ -76,7 +77,11 @@ export async function handleUploadForm(prev: any, formData: FormData) {
         await AddTagsToReply(reply.id, tags);
         redirect("/");
       } else {
-        // delete file
+        await unlink(result.fileName);
+        return {
+          type: "error",
+          message: `Failed to create DB record for new Reply`,
+        };
       }
     }
   }
@@ -92,7 +97,11 @@ export async function handleUploadForm(prev: any, formData: FormData) {
         await AddTagsToReply(reply.id, tags);
         redirect("/");
       } else {
-        // delete file
+        await unlink(result.fileName);
+        return {
+          type: "error",
+          message: `Failed to create DB record for new Reply`,
+        };
       }
     }
   }
