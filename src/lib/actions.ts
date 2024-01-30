@@ -1,9 +1,20 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { CreateTag, GetAllTags } from "./db/queries";
+import {
+  AddTagsToReply,
+  CreateReply,
+  CreateTag,
+  GetAllTags,
+  GetTagsIDs,
+} from "./db/queries";
 import { revalidatePath } from "next/cache";
-import { DownloadFile } from "./utils";
+import {
+  DownloadFile,
+  UploadFile,
+  isFileFormatAllowed,
+  isURLFileFormatAllowed,
+} from "./utils";
 
 export async function handleSearchForm(prev: any, formData: FormData) {
   const formTags: string = formData.get("tags") as string;
@@ -44,11 +55,47 @@ export async function handleTagForm(prev: any, formData: FormData) {
 }
 
 export async function handleUploadForm(prev: any, formData: FormData) {
-  const tags: string = formData.get("tags") as string;
+  const title: string = formData.get("title") as string;
+  const formTags: string = formData.get("tags") as string;
   const upload: File | string = formData.get("upload") as File | string;
-
   const destSrc = "public/uploads";
-  const download =
-    typeof upload === "string" ? await DownloadFile(upload, destSrc) : null;
-  console.log("SERVER ACTION: ", download);
+
+  const tags = await GetTagsIDs(formTags.split(","));
+
+  if (typeof upload === "string") {
+    if (!isURLFileFormatAllowed(upload)) {
+      return {
+        type: "error",
+        message: `${upload.split(".").pop()} is not allowed format`,
+      };
+    }
+    const result = await DownloadFile(upload, destSrc);
+    if (result.type === "success") {
+      const reply = await CreateReply(title, result.fileName);
+      if (reply != null) {
+        await AddTagsToReply(reply.id, tags);
+        redirect("/");
+      } else {
+        // delete file
+      }
+    }
+  }
+
+  if (upload instanceof File) {
+    if (!isFileFormatAllowed(upload)) {
+      return { type: "error", message: `${upload.type} is not allowed format` };
+    }
+    const result = await UploadFile(upload, destSrc);
+    if (result.type === "success") {
+      const reply = await CreateReply(title, result.fileName);
+      if (reply != null) {
+        await AddTagsToReply(reply.id, tags);
+        redirect("/");
+      } else {
+        // delete file
+      }
+    }
+  }
+
+  // if upload is File, save it, then insert tags into DB, if tags fails, delete file
 }
