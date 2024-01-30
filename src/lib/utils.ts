@@ -6,6 +6,7 @@ import {
   allowed_file_formats,
 } from "./const";
 import { unlink, writeFile } from "fs/promises";
+import { v4 as uuidv4 } from "uuid";
 
 export async function ImageLoader(
   src: string,
@@ -46,7 +47,7 @@ export async function DownloadFile(
 ): Promise<ResultSuccess | ResultError> {
   const controller = new AbortController();
   const signal = controller.signal;
-  const fileName = "img6.jpg"; // TODO: change to UUID when dev-upload is not WIP
+  const fileName = [uuidv4(), url.split(".").pop()].join(".");
   const destPath = `${destDir}/${fileName}`;
   const destStream = fs.createWriteStream(destPath);
   let receivedBytes = 0;
@@ -111,7 +112,7 @@ export async function UploadFile(
   file: File,
   destDir: string,
 ): Promise<ResultSuccess | ResultError> {
-  const fileName = "img6.jpg";
+  const fileName = [uuidv4(), file.type.split("/").pop()].join(".");
   const destFilePath = `${destDir}/${fileName}`;
 
   return await writeFile(destFilePath, Buffer.from(await file.arrayBuffer()))
