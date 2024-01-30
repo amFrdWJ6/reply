@@ -5,7 +5,7 @@ import {
   MAX_FILE_SIZE_BYTES,
   allowed_file_formats,
 } from "./const";
-import { unlink } from "fs/promises";
+import { unlink, writeFile } from "fs/promises";
 
 export async function ImageLoader(
   src: string,
@@ -100,4 +100,21 @@ export async function DownloadFile(
       message: (error as Error).message || "An unexpected error",
     };
   }
+}
+
+export async function UploadFile(
+  file: File,
+  destDir: string,
+): Promise<ResultSuccess | ResultError> {
+  const fileName = "img6.jpg";
+  const destFilePath = `${destDir}/${fileName}`;
+
+  return await writeFile(destFilePath, Buffer.from(await file.arrayBuffer()))
+    .then(() => {
+      return { type: "success", fileName: fileName } as ResultSuccess;
+    })
+    .catch((err: Error) => {
+      console.log(err);
+      return { type: "error", message: err.message } as ResultError;
+    });
 }
