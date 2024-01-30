@@ -11,3 +11,6 @@ export const allowed_file_formats = new Map<string, string>([
   ["png", "image/png"],
   ["gif", "image/gif"],
 ]);
+
+export const MAX_FILE_SIZE_BYTES = 4 * 1024 * 1024;
+export const DOWNLOAD_TIMEOUT = 5000;
