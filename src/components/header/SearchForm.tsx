@@ -20,11 +20,10 @@ export default function SearchForm({
   allTags: RTag[];
   placeholder: string;
 }) {
-  const tagsFromURL = useSearchParams().get("tags")?.split(",") || [];
+  const queriedTags = useSearchParams().get("tags")?.split(",") || [];
+  const availableTags = allTags.map((tag) => tag.name);
   const [stagedTags, setStagedTags] = useState<string[]>(
-    allTags
-      .filter((tag) => tagsFromURL.includes(tag.name))
-      .map((tag) => tag.name),
+    queriedTags.filter((tag) => availableTags.includes(tag)),
   );
   const [clientFilterTags, setClientFilterTags] = useState<string>("");
   const [isSearchBarOpen, setSearchBarState] = useState<boolean>(false);
