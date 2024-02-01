@@ -4,7 +4,7 @@ import "./globals.css";
 import Header from "@/components/header/Header";
 
 const lato = Lato({
-  weight: ["100", "400"],
+  weight: ["400"],
   style: "normal",
   subsets: ["latin"],
 });
