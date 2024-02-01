@@ -12,7 +12,7 @@ export default async function Reply({
     tags: string;
   };
 }) {
-  const src_path = await ImageLoader(reply.fileName, 300, 75);
+  const src_path = await ImageLoader(reply.fileName);
 
   return (
     <figure
