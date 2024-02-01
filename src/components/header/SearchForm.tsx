@@ -25,7 +25,7 @@ export default function SearchForm({
   const [stagedTags, setStagedTags] = useState<string[]>(
     queriedTags.filter((tag) => availableTags.includes(tag)),
   );
-  const [clientFilterTags, setClientFilterTags] = useState<string>("");
+  const [filterTags, setFilterTags] = useState<string>("");
   const [isSearchBarOpen, setSearchBarState] = useState<boolean>(false);
   const [_, formAction] = useFormState(handleSearchForm, null);
 
@@ -42,7 +42,7 @@ export default function SearchForm({
       <TagBar
         onClick={() => {
           setSearchBarState(!isSearchBarOpen);
-          setClientFilterTags("");
+          setFilterTags("");
         }}
         isSearchBarOpen={isSearchBarOpen}
       >
@@ -83,12 +83,12 @@ export default function SearchForm({
         <>
           <FilterTagsInput
             stagedTags={stagedTags}
-            onChange={(e) => setClientFilterTags(e.target.value)}
+            onChange={(e) => setFilterTags(e.target.value)}
           />
           <div className="flex h-max w-full flex-row flex-wrap gap-2 rounded-b border border-tertiary bg-secondary p-2">
             {allTags
               .filter((tag) => !stagedTags.includes(tag.name))
-              .filter((tag) => tag.name.includes(clientFilterTags))
+              .filter((tag) => tag.name.includes(filterTags))
               .map((tag) =>
                 tag ? (
                   <ListedTag
