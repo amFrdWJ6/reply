@@ -10,7 +10,7 @@ import TagBar from "./form/TagBar";
 import ArrowIcons from "./form/ArrowIcons";
 import DeleteTags from "./form/DeleteTags";
 import StagingTag from "./form/StagingTag";
-import ClientSearch from "./form/ClientSearch";
+import FilterTagsInput from "./form/FilterTagsInput";
 import ListedTag from "./form/ListedTag";
 
 export default function SearchForm({
@@ -81,7 +81,7 @@ export default function SearchForm({
       </TagBar>
       {isSearchBarOpen && (
         <>
-          <ClientSearch
+          <FilterTagsInput
             stagedTags={stagedTags}
             onChange={(e) => setClientFilterTags(e.target.value)}
           />

@@ -1,7 +1,7 @@
 import { SearchIcon } from "@/components/icons/svg";
 import React from "react";
 
-export default function ClientSearch({
+export default function FilterTagsInput({
   stagedTags,
   onChange,
 }: {
