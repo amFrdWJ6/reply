@@ -52,6 +52,7 @@ export async function handleTagForm(prev: any, formData: FormData) {
   }
   await CreateTag(validatedTags);
   revalidatePath("/tags");
+  revalidatePath("/upload");
   redirect(`/tags`);
 }
 
@@ -75,6 +76,7 @@ export async function handleUploadForm(prev: any, formData: FormData) {
       const reply = await CreateReply(title, result.fileName);
       if (reply != null) {
         await AddTagsToReply(reply.id, tags);
+        revalidatePath("/");
         redirect("/");
       } else {
         await unlink(result.fileName);
@@ -95,6 +97,7 @@ export async function handleUploadForm(prev: any, formData: FormData) {
       const reply = await CreateReply(title, result.fileName);
       if (reply != null) {
         await AddTagsToReply(reply.id, tags);
+        revalidatePath("/");
         redirect("/");
       } else {
         await unlink(result.fileName);
@@ -105,6 +108,4 @@ export async function handleUploadForm(prev: any, formData: FormData) {
       }
     }
   }
-
-  // if upload is File, save it, then insert tags into DB, if tags fails, delete file
 }
