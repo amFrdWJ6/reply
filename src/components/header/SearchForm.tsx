@@ -30,8 +30,7 @@ export default function SearchForm({
   const [isSearchBarOpen, setSearchBarState] = useState<boolean>(false);
   const [_, formAction] = useFormState(handleSearchForm, null);
 
-  const pathname = usePathname();
-  if (pathname != "/") {
+  if (usePathname() != "/") {
     return null;
   }
 
