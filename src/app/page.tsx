@@ -6,11 +6,14 @@ import {
 } from "@/lib/db/queries";
 import Reply from "@/components/Reply";
 
-async function CheckURLTags(searchedTags: string) {
+async function ValidateTagsFromURLQuery(searchParamsTags: string) {
   const allTags = await GetAllTags();
-  const validatedTags = allTags
-    .filter((tag) => searchedTags.split(",").includes(tag.name))
-    .map((tag) => tag.name);
+  const availableTags = allTags.map((tag) => tag.name);
+  const queriedTags = searchParamsTags.split(",");
+
+  const validatedTags = queriedTags.filter((tag) =>
+    availableTags.includes(tag),
+  );
 
   if (validatedTags.length == 0) {
     redirect("/");
@@ -18,14 +21,16 @@ async function CheckURLTags(searchedTags: string) {
   return validatedTags;
 }
 
-export default async function Home({
+export default async function ShowQueriedReplies({
   searchParams,
 }: {
   searchParams: { [key: string]: string | undefined };
 }) {
   const replies =
     searchParams.tags != undefined
-      ? await GetAllRepliesByTags(await CheckURLTags(searchParams.tags))
+      ? await GetAllRepliesByTags(
+          await ValidateTagsFromURLQuery(searchParams.tags),
+        )
       : await GetLatestReplies();
 
   if (replies == null) {
@@ -38,13 +43,13 @@ export default async function Home({
     );
   }
 
-  const listReplis = replies.map((reply) => (
+  const listOfReplies = replies.map((reply) => (
     <Reply key={reply.id} reply={reply} />
   ));
 
   return (
     <div className="columns-1 space-y-4 sm:columns-2 lg:columns-3 xl:columns-4">
-      {listReplis}
+      {listOfReplies}
     </div>
   );
 }
