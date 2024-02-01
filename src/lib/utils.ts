@@ -8,12 +8,8 @@ import {
 import { unlink, writeFile } from "fs/promises";
 import { v4 as uuidv4 } from "uuid";
 
-export async function ImageLoader(
-  src: string,
-  width: number,
-  quality: number = 75,
-) {
-  return `http://localhost:3000/uploads/${src}?w=${width}&q=${quality}`;
+export async function ImageLoader(src: string) {
+  return `http://localhost:3000/api/reply?f=${src}`;
 }
 
 export function isFileFormatAllowed(file: File) {
