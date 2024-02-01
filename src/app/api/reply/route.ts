@@ -8,13 +8,14 @@ export async function GET(req: NextRequest) {
     return NextResponse.json("No file provided. API call should be /api/reply?f=file.png", { status: 400 });
   }
 
-  return await access(["public/uploads", fileName].join("/"), constants.F_OK)
+  const file = ["public/uploads", fileName].join("/");
+  return await access(file, constants.F_OK)
     .then(async () => {
       return new NextResponse(
-        await readFile(["public/uploads", fileName].join("/")),
+        await readFile(file),
       );
     })
     .catch(async () => {
-      return NextResponse.json("File does not exsits", { status: 404 });
+      return NextResponse.json(`File [${fileName}] does not exsits`, { status: 404 });
     });
 }
