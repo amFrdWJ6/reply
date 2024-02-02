@@ -11,7 +11,7 @@ import ArrowIcons from "./form/ArrowIcons";
 import RemoveStagedTags from "./form/RemoveStagedTags";
 import StagingTag from "./form/StagingTag";
 import FilterTagsInput from "./form/FilterTagsInput";
-import ListedTag from "./form/ListedTag";
+import UnpickedTag from "./form/UnpickedTag";
 
 export default function SearchForm({
   allTags,
@@ -91,7 +91,7 @@ export default function SearchForm({
               .filter((tag) => tag.name.includes(filterTags))
               .map((tag) =>
                 tag ? (
-                  <ListedTag
+                  <UnpickedTag
                     key={tag.name}
                     tag={tag}
                     onClick={() => {

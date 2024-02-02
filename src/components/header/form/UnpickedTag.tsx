@@ -1,4 +1,4 @@
-export default function ListedTag({
+export default function UnpickedTag({
   tag,
   onClick,
 }: {
