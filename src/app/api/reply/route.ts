@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json("No file provided. API call should be /api/reply?f=file.png", { status: 400 });
   }
 
-  const file = ["public/uploads", fileName].join("/");
+  const file = [process.env.UPLOADS_DIR, fileName].join("/");
   return await access(file, constants.F_OK)
     .then(async () => {
       return new NextResponse(
