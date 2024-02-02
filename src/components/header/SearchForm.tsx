@@ -1,16 +1,16 @@
 "use client";
 
-import type { RTag } from "@/lib/db/schema";
 import { useFormState } from "react-dom";
-import { handleSearchForm } from "@/lib/actions";
-import { useState } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
-import Placeholder from "./form/Placeholder";
-import StagedTagsBar from "./form/StagedTagsBar";
+import { useState } from "react";
+import { handleSearchForm } from "@/lib/actions";
+import type { RTag } from "@/lib/db/schema";
 import ArrowIcons from "./form/ArrowIcons";
-import RemoveStagedTags from "./form/RemoveStagedTags";
-import StagingTag from "./form/StagingTag";
 import FilterTagsInput from "./form/FilterTagsInput";
+import Placeholder from "./form/Placeholder";
+import RemoveStagedTags from "./form/RemoveStagedTags";
+import StagedTagsBar from "./form/StagedTagsBar";
+import StagingTag from "./form/StagingTag";
 import UnpickedTag from "./form/UnpickedTag";
 
 export default function SearchForm({
