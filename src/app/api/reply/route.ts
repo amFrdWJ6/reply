@@ -1,7 +1,6 @@
 import { access, constants, readFile } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
 
-export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest) {
   const fileName = req.nextUrl.searchParams.get("f");
   if (fileName == null) {
