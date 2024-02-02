@@ -9,7 +9,7 @@ export default function FilterTagsInput({
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
-    <div className="flex w-full flex-row border-x  border-tertiary">
+    <div className="flex w-full flex-row border-x border-tertiary">
       <input
         type="search"
         name="clientSearch"
