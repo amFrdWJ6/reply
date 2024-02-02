@@ -6,16 +6,14 @@ import { getAllowedFormats, isFileFormatAllowed } from "@/lib/utils";
 import { ChangeEvent, useState } from "react";
 import { useFormState } from "react-dom";
 
-enum FromSourceState {
-  FROMDISC = "fromDisc",
-  FROMURL = "fromURL",
+enum SourceType {
+  LOCAL = "local",
+  URL = "url",
 }
 
 export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
   const [_, formAction] = useFormState(handleUploadForm, null);
-  const [fromSource, setFromSource] = useState<FromSourceState>(
-    FromSourceState.FROMDISC,
-  );
+  const [sourceType, setSourceType] = useState<SourceType>(SourceType.LOCAL);
   const [stagedTags, setStagedTags] = useState<Array<string>>([]);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedURL, setSelectedURL] = useState<string>("");
@@ -84,17 +82,17 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
       <div className="flex w-1/2 flex-col items-center gap-4">
         <ul className="flex flex-row shadow-xl">
           <li
-            className={`${fromSource === FromSourceState.FROMDISC ? "bg-primary" : "bg-secondary"} rounded-l-lg p-2 text-quaternary`}
+            className={`${sourceType === SourceType.LOCAL ? "bg-primary" : "bg-secondary"} rounded-l-lg p-2 text-quaternary`}
             onClick={() => {
-              setFromSource(FromSourceState.FROMDISC);
+              setSourceType(SourceType.LOCAL);
             }}
           >
             From disc
           </li>
           <li
-            className={`${fromSource === FromSourceState.FROMURL ? "bg-primary" : "bg-secondary"} rounded-r-lg p-2 text-quaternary`}
+            className={`${sourceType === SourceType.URL ? "bg-primary" : "bg-secondary"} rounded-r-lg p-2 text-quaternary`}
             onClick={() => {
-              setFromSource(FromSourceState.FROMURL);
+              setSourceType(SourceType.URL);
             }}
           >
             From URL
@@ -102,7 +100,7 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
         </ul>
 
         <div className="w-full">
-          {fromSource === FromSourceState.FROMDISC ? (
+          {sourceType === SourceType.LOCAL ? (
             <>
               <label className="sr-only" htmlFor="upload">
                 Upload file
