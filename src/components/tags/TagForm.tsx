@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useFormState } from "react-dom";
 import { handleTagForm } from "@/lib/actions";
 import StagedTag from "../header/form/StagedTag";
+import TagRules from "./TagRules";
 
 export default function TagForm() {
   const [_, formAction] = useFormState(handleTagForm, null);
@@ -17,15 +18,7 @@ export default function TagForm() {
       onSubmit={() => setStagedTags([])}
     >
       <h1 className="text-2xl text-tertiary">Form:</h1>
-      <div className="rounded-t bg-tertiary p-2 text-quaternary">
-        <h1 className="text-primary">Rules:</h1>
-        <ul className="list-inside list-decimal">
-          <li>lowercase strings only</li>
-          <li>use underscore as separator (small_example), if necessary</li>
-          <li>no bullshit (your github acc is paired with ops, see log)</li>
-          <li>do not cry on reset, host reply yourself</li>
-        </ul>
-      </div>
+      <TagRules />
       <div className="flex w-full flex-row">
         <div
           className={`${stagedTags.length == 0 ? "rounded-bl" : null} flex h-10 w-10 items-center justify-center bg-white text-3xl text-tertiary`}
