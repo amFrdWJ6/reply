@@ -16,7 +16,5 @@ export function isURLFileFormatAllowed(file: string) {
 }
 
 export function getAllowedFormats() {
-  return Array.from(allowed_file_formats.values())
-    .map((format) => format.split("/")[1])
-    .join(" / ");
+  return Array.from(allowed_file_formats.keys()).join(" / ");
 }
