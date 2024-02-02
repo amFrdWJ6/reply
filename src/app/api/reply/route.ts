@@ -5,17 +5,20 @@ export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest) {
   const fileName = req.nextUrl.searchParams.get("f");
   if (fileName == null) {
-    return NextResponse.json("No file provided. API call should be /api/reply?f=file.png", { status: 400 });
+    return NextResponse.json(
+      "No file provided. API call should be /api/reply?f=file.png",
+      { status: 400 },
+    );
   }
 
   const file = [process.env.UPLOADS_DIR, fileName].join("/");
   return await access(file, constants.F_OK)
     .then(async () => {
-      return new NextResponse(
-        await readFile(file),
-      );
+      return new NextResponse(await readFile(file));
     })
     .catch(async () => {
-      return NextResponse.json(`File [${fileName}] does not exsits`, { status: 404 });
+      return NextResponse.json(`File [${fileName}] does not exsits`, {
+        status: 404,
+      });
     });
 }
