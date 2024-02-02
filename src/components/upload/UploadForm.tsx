@@ -11,6 +11,7 @@ import TitleInput from "./TitleInput";
 import SourceSelect from "./SourceSelect";
 import FileInput from "./FileInput";
 import URLInput from "./URLInput";
+import Tags from "./Tags";
 
 export enum SourceType {
   LOCAL = "local",
@@ -90,27 +91,11 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
 
       <hr className="w-11/12 border-b border-primary" />
 
-      <div className="w-full shadow-xl">
-        <div className="flex flex-col gap-2 rounded-t-xl border-b border-primary bg-tertiary p-4">
-          <h1 className="text-2xl text-primary">Staged tags:</h1>
-          <p className="flex flex-row flex-wrap gap-3">
-            {stagedTags.length != 0 ? (
-              listStagedTags
-            ) : (
-              <span className="text-quaternary">
-                New reply require at least one tag!
-              </span>
-            )}
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-2 rounded-b-xl bg-secondary p-4">
-          <h1 className="text-2xl text-quaternary">All tags:</h1>
-          <p className="flex flex-row flex-wrap gap-3">{availableTags}</p>
-        </div>
-
-        <input type="hidden" name="tags" value={stagedTags} />
-      </div>
+      <Tags
+        stagedTags={stagedTags}
+        availableTags={availableTags}
+        listStagedTags={listStagedTags}
+      />
 
       <button
         type="submit"
