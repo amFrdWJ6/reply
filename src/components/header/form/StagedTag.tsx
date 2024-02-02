@@ -1,6 +1,6 @@
 import { DeleteIcon } from "@/components/icons/svg";
 
-export default function StagingTag({
+export default function StagedTag({
   tag,
   onClick,
 }: {

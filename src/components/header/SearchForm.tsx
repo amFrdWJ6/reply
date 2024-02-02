@@ -9,8 +9,8 @@ import ArrowIcons from "./form/ArrowIcons";
 import FilterTagsInput from "./form/FilterTagsInput";
 import Placeholder from "./form/Placeholder";
 import RemoveStagedTags from "./form/RemoveStagedTags";
+import StagedTag from "./form/StagedTag";
 import StagedTagsBar from "./form/StagedTagsBar";
-import StagingTag from "./form/StagingTag";
 import UnpickedTag from "./form/UnpickedTag";
 
 export default function SearchForm({
@@ -49,7 +49,7 @@ export default function SearchForm({
         <div className="flex w-[calc(100%-54px)] overflow-hidden overflow-x-auto">
           {stagedTags.length ? (
             stagedTags.map((tag) => (
-              <StagingTag
+              <StagedTag
                 key={tag}
                 tag={tag}
                 onClick={(event) => {
