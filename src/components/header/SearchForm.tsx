@@ -9,7 +9,7 @@ import ArrowIcons from "./form/ArrowIcons";
 import FilterTagsInput from "./form/FilterTagsInput";
 import Placeholder from "./form/Placeholder";
 import RemoveStagedTags from "./form/RemoveStagedTags";
-import StagedTag from "./form/StagedTag";
+import StagedTag from "../common/StagedTag";
 import StagedTagsBar from "./form/StagedTagsBar";
 import UnpickedTag from "../common/UnpickedTag";
 

@@ -6,6 +6,7 @@ import { getAllowedFormats, isFileFormatAllowed } from "@/lib/utils";
 import { ChangeEvent, useState } from "react";
 import { useFormState } from "react-dom";
 import UnpickedTag from "../common/UnpickedTag";
+import StagedTag from "../common/StagedTag";
 
 enum SourceType {
   LOCAL = "local",
@@ -34,9 +35,15 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
     ));
 
   const listStagedTags = stagedTags.map((tag) => (
-    <span key={tag} className="bg-primary p-1 text-tertiary">
-      {tag}
-    </span>
+    <StagedTag
+      key={tag}
+      tag={tag}
+      onClick={() => {
+        setStagedTags((prev) => [
+          ...prev.filter((stagedTag) => stagedTag !== tag),
+        ]);
+      }}
+    />
   ));
 
   const handleFileInput = (event: ChangeEvent<HTMLInputElement>) => {
