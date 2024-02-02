@@ -11,7 +11,7 @@ import Placeholder from "./form/Placeholder";
 import RemoveStagedTags from "./form/RemoveStagedTags";
 import StagedTag from "./form/StagedTag";
 import StagedTagsBar from "./form/StagedTagsBar";
-import UnpickedTag from "./form/UnpickedTag";
+import UnpickedTag from "../common/UnpickedTag";
 
 export default function SearchForm({
   allTags,

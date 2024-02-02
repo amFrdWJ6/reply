@@ -5,6 +5,7 @@ import { RTag } from "@/lib/db/schema";
 import { getAllowedFormats, isFileFormatAllowed } from "@/lib/utils";
 import { ChangeEvent, useState } from "react";
 import { useFormState } from "react-dom";
+import UnpickedTag from "../common/UnpickedTag";
 
 enum SourceType {
   LOCAL = "local",
@@ -23,15 +24,13 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
   const availableTags = allTags
     .filter((tag) => !stagedTags.includes(tag.name))
     .map((tag) => (
-      <span
-        key={tag.id}
+      <UnpickedTag
+        key={tag.name}
+        tag={tag}
         onClick={() => {
           setStagedTags((prev) => [...new Set([...prev, tag.name])]);
         }}
-        className="bg-primary p-1 text-tertiary"
-      >
-        {tag.name}
-      </span>
+      />
     ));
 
   const listStagedTags = stagedTags.map((tag) => (
