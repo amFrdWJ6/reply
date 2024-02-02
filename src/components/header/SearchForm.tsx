@@ -62,7 +62,7 @@ export default function SearchForm({
               />
             ))
           ) : (
-            <Placeholder placeholder={placeholder} />
+            <Placeholder msg={placeholder} />
           )}
 
           <div className="absolute inset-y-0 end-0 flex flex-row items-center px-2 py-2.5">
