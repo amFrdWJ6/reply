@@ -100,9 +100,7 @@ export default function SearchForm({
                       ]);
                     }}
                   />
-                ) : (
-                  <p key="pica">Picaaa</p>
-                ),
+                ) : null,
               )}
           </div>
         </>
