@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useFormState } from "react-dom";
 import { handleTagForm } from "@/lib/actions";
-import StagedTag from "../header/form/StagedTag";
 import TagRules from "./TagRules";
 import StagedTags from "./StagedTags";
 
