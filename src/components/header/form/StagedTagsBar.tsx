@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export default function TagBar({
+export default function StagedTagsBar({
   children,
   onClick,
   isSearchBarOpen,

@@ -6,7 +6,7 @@ import { handleSearchForm } from "@/lib/actions";
 import { useState } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 import Placeholder from "./form/Placeholder";
-import TagBar from "./form/TagBar";
+import StagedTagsBar from "./form/StagedTagsBar";
 import ArrowIcons from "./form/ArrowIcons";
 import RemoveStagedTags from "./form/RemoveStagedTags";
 import StagingTag from "./form/StagingTag";
@@ -39,7 +39,7 @@ export default function SearchForm({
       className="absolute left-1/2 top-1 z-50 w-full max-w-64 -translate-x-1/2 shadow-lg sm:max-w-md md:max-w-lg"
       onSubmit={() => setSearchBarState(false)}
     >
-      <TagBar
+      <StagedTagsBar
         onClick={() => {
           setSearchBarState(!isSearchBarOpen);
           setFilterTags("");
@@ -78,7 +78,7 @@ export default function SearchForm({
             <ArrowIcons isMenuOpen={isSearchBarOpen} />
           </div>
         </div>
-      </TagBar>
+      </StagedTagsBar>
       {isSearchBarOpen && (
         <>
           <FilterTagsInput
