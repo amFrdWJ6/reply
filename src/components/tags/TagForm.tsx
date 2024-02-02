@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useFormState } from "react-dom";
 import { handleTagForm } from "@/lib/actions";
-import StagingTag from "../header/form/StagingTag";
+import StagedTag from "../header/form/StagedTag";
 
 export default function TagForm() {
   const [_, formAction] = useFormState(handleTagForm, null);
@@ -65,7 +65,7 @@ export default function TagForm() {
           <h1 className=" text-2xl text-tertiary">Staged tags:</h1>
           <div className="flex flex-row flex-wrap gap-2">
             {stagedTags.map((tag) => (
-              <StagingTag
+              <StagedTag
                 key={tag}
                 tag={tag}
                 onClick={() => {
