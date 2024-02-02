@@ -1,6 +1,6 @@
 import { DeleteIcon } from "@/components/icons/svg";
 
-export default function DeleteTags({
+export default function RemoveStagedTags({
   onClick,
 }: {
   onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;

@@ -8,7 +8,7 @@ import { useSearchParams, usePathname } from "next/navigation";
 import Placeholder from "./form/Placeholder";
 import TagBar from "./form/TagBar";
 import ArrowIcons from "./form/ArrowIcons";
-import DeleteTags from "./form/DeleteTags";
+import RemoveStagedTags from "./form/RemoveStagedTags";
 import StagingTag from "./form/StagingTag";
 import FilterTagsInput from "./form/FilterTagsInput";
 import ListedTag from "./form/ListedTag";
@@ -66,8 +66,8 @@ export default function SearchForm({
           )}
 
           <div className="absolute inset-y-0 end-0 flex flex-row items-center px-2 py-2.5">
-            {stagedTags.length ? (
-              <DeleteTags
+            {stagedTags.length > 0 ? (
+              <RemoveStagedTags
                 onClick={(event) => {
                   event.stopPropagation();
                   setSearchBarState(true);
