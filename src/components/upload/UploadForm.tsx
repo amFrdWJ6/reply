@@ -2,7 +2,7 @@
 
 import { handleUploadForm } from "@/lib/actions";
 import { RTag } from "@/lib/db/schema";
-import { getAllowedFormats, isFileFormatAllowed } from "@/lib/utils";
+import { isFileFormatAllowed } from "@/lib/utils";
 import { ChangeEvent, useState } from "react";
 import { useFormState } from "react-dom";
 import UnpickedTag from "../common/UnpickedTag";
@@ -26,7 +26,6 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
   const [selectedURL, setSelectedURL] = useState<string>("");
   const [isError, setError] = useState<boolean>(false);
 
-  const allowedFormats = getAllowedFormats();
   const availableTags = allTags
     .filter((tag) => !stagedTags.includes(tag.name))
     .map((tag) => (
