@@ -8,8 +8,9 @@ import { useFormState } from "react-dom";
 import UnpickedTag from "../common/UnpickedTag";
 import StagedTag from "../common/StagedTag";
 import TitleInput from "./TitleInput";
+import SourceSelect from "./SourceSelect";
 
-enum SourceType {
+export enum SourceType {
   LOCAL = "local",
   URL = "url",
 }
@@ -74,24 +75,7 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
       <TitleInput />
       <hr className="w-11/12 border-b border-primary" />
       <div className="flex w-1/2 flex-col items-center gap-4">
-        <ul className="flex flex-row shadow-xl">
-          <li
-            className={`${sourceType === SourceType.LOCAL ? "bg-primary" : "bg-secondary"} rounded-l-lg p-2 text-quaternary`}
-            onClick={() => {
-              setSourceType(SourceType.LOCAL);
-            }}
-          >
-            From disc
-          </li>
-          <li
-            className={`${sourceType === SourceType.URL ? "bg-primary" : "bg-secondary"} rounded-r-lg p-2 text-quaternary`}
-            onClick={() => {
-              setSourceType(SourceType.URL);
-            }}
-          >
-            From URL
-          </li>
-        </ul>
+        <SourceSelect sourceType={sourceType} setSourceType={setSourceType} />
 
         <div className="w-full">
           {sourceType === SourceType.LOCAL ? (
