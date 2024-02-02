@@ -5,13 +5,13 @@ import { useFormState } from "react-dom";
 import { handleUploadForm } from "@/lib/actions";
 import { RTag } from "@/lib/db/schema";
 import { isFileFormatAllowed } from "@/lib/utils";
-import FileInput from "./FileInput";
-import SourceSelect from "./SourceSelect";
-import StagedTag from "../common/StagedTag";
-import Tags from "./Tags";
-import TitleInput from "./TitleInput";
-import UnpickedTag from "../common/UnpickedTag";
-import URLInput from "./URLInput";
+import FileInput from "./form/FileInput";
+import SourceSelect from "./form/SourceSelect";
+import StagedTag from "../common/form/StagedTag";
+import Tags from "./form/Tags";
+import TitleInput from "./form/TitleInput";
+import UnpickedTag from "../common/form/UnpickedTag";
+import URLInput from "./form/URLInput";
 
 export enum SourceType {
   LOCAL = "local",

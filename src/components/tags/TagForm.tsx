@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useFormState } from "react-dom";
 import { handleTagForm } from "@/lib/actions";
-import TagRules from "./TagRules";
-import StagedTags from "./StagedTags";
+import TagRules from "./form/TagRules";
+import StagedTags from "./form/StagedTags";
 
 export default function TagForm() {
   const [_, formAction] = useFormState(handleTagForm, null);

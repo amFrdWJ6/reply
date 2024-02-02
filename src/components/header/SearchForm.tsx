@@ -9,9 +9,9 @@ import ArrowIcons from "./form/ArrowIcons";
 import FilterTagsInput from "./form/FilterTagsInput";
 import Placeholder from "./form/Placeholder";
 import RemoveStagedTags from "./form/RemoveStagedTags";
-import StagedTag from "../common/StagedTag";
+import StagedTag from "../common/form/StagedTag";
 import StagedTagsBar from "./form/StagedTagsBar";
-import UnpickedTag from "../common/UnpickedTag";
+import UnpickedTag from "../common/form/UnpickedTag";
 
 export default function SearchForm({
   allTags,

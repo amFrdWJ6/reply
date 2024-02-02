@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import StagedTag from "../header/form/StagedTag";
+import StagedTag from "@/components/common/form/StagedTag";
 
 export default function StagedTags({
   stagedTags,

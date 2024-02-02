@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { SourceType } from "./UploadForm";
+import { SourceType } from "../UploadForm";
 
 export default function SourceSelect({
   sourceType,
