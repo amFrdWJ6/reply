@@ -1,17 +1,17 @@
 "use client";
 
+import { ChangeEvent, useState } from "react";
+import { useFormState } from "react-dom";
 import { handleUploadForm } from "@/lib/actions";
 import { RTag } from "@/lib/db/schema";
 import { isFileFormatAllowed } from "@/lib/utils";
-import { ChangeEvent, useState } from "react";
-import { useFormState } from "react-dom";
-import UnpickedTag from "../common/UnpickedTag";
-import StagedTag from "../common/StagedTag";
-import TitleInput from "./TitleInput";
-import SourceSelect from "./SourceSelect";
 import FileInput from "./FileInput";
-import URLInput from "./URLInput";
+import SourceSelect from "./SourceSelect";
+import StagedTag from "../common/StagedTag";
 import Tags from "./Tags";
+import TitleInput from "./TitleInput";
+import UnpickedTag from "../common/UnpickedTag";
+import URLInput from "./URLInput";
 
 export enum SourceType {
   LOCAL = "local",
