@@ -35,11 +35,13 @@ export default async function ShowQueriedReplies({
 
   if (replies == null) {
     return (
-      <p className="text-tertiary">
-        H-h. There is a <span className="text-6xl text-primary">null</span> of
-        replies with those tags.
+      <div className="flex flex-col justify-start">
+        <p className="text-tertiary">
+          H-h. There is a <span className="text-6xl text-primary">null</span> of
+          replies with those tags.
+        </p>
         <p>Did you break it ?! ಠ_ಠ</p>
-      </p>
+      </div>
     );
   }
 
