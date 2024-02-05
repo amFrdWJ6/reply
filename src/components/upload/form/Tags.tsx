@@ -11,7 +11,7 @@ export default function Tags({
     <div className="w-full shadow-xl">
       <div className="flex flex-col gap-2 rounded-t-xl border-b border-primary bg-tertiary p-4">
         <h1 className="text-2xl text-primary">Staged tags:</h1>
-        <p className="flex flex-row flex-wrap gap-3">
+        <div className="flex flex-row flex-wrap gap-3">
           {stagedTags.length != 0 ? (
             listStagedTags
           ) : (
@@ -19,7 +19,7 @@ export default function Tags({
               New reply require at least one tag!
             </span>
           )}
-        </p>
+        </div>
       </div>
 
       <div className="flex flex-col gap-2 rounded-b-xl bg-secondary p-4">
