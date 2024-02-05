@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import { DOWNLOAD_TIMEOUT, MAX_FILE_SIZE_BYTES } from "./const";
 import {
   AddTagsToReply,
+  CreateLog,
   CreateReply,
   CreateTag,
   GetAllTags,
@@ -52,7 +53,8 @@ export async function handleTagForm(prev: any, formData: FormData) {
   if (validatedTags.length == 0) {
     redirect("/tags");
   }
-  await CreateTag(validatedTags);
+  const tags_ids = await CreateTag(validatedTags);
+  await CreateLog(user, "added tag", undefined, tags_ids);
   revalidatePath("/tags");
   revalidatePath("/upload");
   redirect(`/tags`);
@@ -83,7 +85,9 @@ export async function handleUploadForm(prev: any, formData: FormData) {
       const reply = await CreateReply(title, result.fileName);
       if (reply != null) {
         await AddTagsToReply(reply.id, tags);
+        await CreateLog(user, "added reply", reply.id, undefined);
         revalidatePath("/");
+        revalidatePath("/log");
         redirect("/");
       } else {
         await unlink(result.fileName);
@@ -104,7 +108,9 @@ export async function handleUploadForm(prev: any, formData: FormData) {
       const reply = await CreateReply(title, result.fileName);
       if (reply != null) {
         await AddTagsToReply(reply.id, tags);
+        await CreateLog(user, "added reply", reply.id);
         revalidatePath("/");
+        revalidatePath("/log");
         redirect("/");
       } else {
         await unlink(result.fileName);

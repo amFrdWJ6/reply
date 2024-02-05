@@ -6,6 +6,7 @@ import {
   DeleteIcon,
   HamburgerMenu,
   HomeIcon,
+  LogIcon,
   TagIcon,
   UploadIcon,
 } from "../icons/svg";
@@ -24,6 +25,9 @@ function Menu() {
       </Link>
       <Link href={`/tags`}>
         <TagIcon />
+      </Link>
+      <Link href={`/log`}>
+        <LogIcon />
       </Link>
       {session ? <SignOut /> : <SignIn />}
     </>

@@ -2,13 +2,15 @@ import Database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import {
   RTag,
+  WLog,
   WReply,
   WTagToReply,
+  tblLog,
   tblReply,
   tblTag,
   tblTagToReply,
 } from "./schema";
-import { eq, inArray, sql } from "drizzle-orm";
+import { and, eq, inArray, isNotNull, sql } from "drizzle-orm";
 
 const sqlite = new Database("data/reply.db");
 const db = drizzle(sqlite);
@@ -60,7 +62,7 @@ export async function GetLatestReplies() {
 
 export async function CreateTag(tags: { name: string }[]) {
   try {
-    db.insert(tblTag).values(tags).run();
+    return db.insert(tblTag).values(tags).returning({ id: tblTag.id }).all();
   } catch (error) {
     console.log("");
   }
@@ -102,5 +104,64 @@ export async function AddTagsToReply(reply_id: number, tags: RTag[]) {
     db.insert(tblTagToReply).values(newTagsToReply).run();
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function GetLogs(page: number, limit: number = 10) {
+  return db
+    .select({
+      id: tblLog.id,
+      who: tblLog.who,
+      action: tblLog.action,
+      when: tblLog.when,
+      tag: tblTag.name,
+      file: tblReply.fileName,
+    })
+    .from(tblLog)
+    .leftJoin(
+      tblReply,
+      and(isNotNull(tblLog.reply_id), eq(tblLog.reply_id, tblReply.id)),
+    )
+    .leftJoin(
+      tblTag,
+      and(isNotNull(tblLog.tag_id), eq(tblLog.tag_id, tblTag.id)),
+    )
+    .limit(limit)
+    .offset(page * limit)
+    .all();
+}
+
+export async function CreateLog(
+  who: string,
+  action: string,
+  reply_id?: number,
+  tag_ids?: { id: number }[],
+) {
+  if (tag_ids && tag_ids.length > 0) {
+    for (let tag of tag_ids) {
+      const newLog: WLog = {
+        who: who,
+        action: action,
+        tag_id: tag.id,
+      };
+
+      try {
+        db.insert(tblLog).values(newLog).run();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  } else {
+    const newLog: WLog = {
+      who: who,
+      action: action,
+      reply_id: reply_id,
+    };
+
+    try {
+      db.insert(tblLog).values(newLog).run();
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

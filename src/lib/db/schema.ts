@@ -1,4 +1,4 @@
-import { InferInsertModel, InferSelectModel } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel, sql } from "drizzle-orm";
 import {
   integer,
   primaryKey,
@@ -40,3 +40,17 @@ export const tblTagToReply = sqliteTable(
   },
 );
 export type WTagToReply = InferInsertModel<typeof tblTagToReply>;
+
+export const tblLog = sqliteTable("log", {
+  id: integer("id", { mode: "number" }).primaryKey(),
+  who: text("who").notNull(),
+  action: text("action").notNull(),
+  when: text("when")
+    .notNull()
+    .default(sql`CURRENT_TIMESTAMP`),
+  reply_id: integer("reply_id", { mode: "number" }).references(
+    () => tblReply.id,
+  ),
+  tag_id: integer("tag_id", { mode: "number" }).references(() => tblTag.id),
+});
+export type WLog = InferInsertModel<typeof tblLog>;
