@@ -15,6 +15,7 @@ import {
   GetAllTags,
   GetTagsIDs,
 } from "./db/queries";
+import { RTag } from "./db/schema";
 import { isFileFormatAllowed, isURLFileFormatAllowed } from "./utils";
 import { signIn, signOut } from "./auth";
 
@@ -82,20 +83,9 @@ export async function handleUploadForm(prev: any, formData: FormData) {
     }
     const result = await DownloadFile(upload, destSrc);
     if (result.type === "success") {
-      const reply = await CreateReply(title, result.fileName);
-      if (reply != null) {
-        await AddTagsToReply(reply.id, tags);
-        await CreateLog(user, "added reply", reply.id, undefined);
-        revalidatePath("/");
-        revalidatePath("/log");
-        redirect("/");
-      } else {
-        await unlink(result.fileName);
-        return {
-          type: "error",
-          message: `Failed to create DB record for new Reply`,
-        };
-      }
+      return await CreateDBRecords(title, result.fileName, user, tags);
+    } else {
+      return result;
     }
   }
 
@@ -105,21 +95,32 @@ export async function handleUploadForm(prev: any, formData: FormData) {
     }
     const result = await UploadFile(upload, destSrc);
     if (result.type === "success") {
-      const reply = await CreateReply(title, result.fileName);
-      if (reply != null) {
-        await AddTagsToReply(reply.id, tags);
-        await CreateLog(user, "added reply", reply.id);
-        revalidatePath("/");
-        revalidatePath("/log");
-        redirect("/");
-      } else {
-        await unlink(result.fileName);
-        return {
-          type: "error",
-          message: `Failed to create DB record for new Reply`,
-        };
-      }
+      return await CreateDBRecords(title, result.fileName, user, tags);
+    } else {
+      return result;
     }
+  }
+}
+
+async function CreateDBRecords(
+  title: string,
+  fileName: string,
+  user: string,
+  tags: RTag[],
+) {
+  const reply = await CreateReply(title, fileName);
+  if (reply != null) {
+    await AddTagsToReply(reply.id, tags);
+    await CreateLog(user, "added reply", reply.id, undefined);
+    revalidatePath("/");
+    revalidatePath("/log");
+    redirect("/");
+  } else {
+    await unlink(fileName);
+    return {
+      type: "error",
+      message: `Failed to create DB record for new Reply`,
+    };
   }
 }
 
