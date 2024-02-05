@@ -34,6 +34,8 @@ export async function handleSearchForm(prev: any, formData: FormData) {
 
 export async function handleTagForm(prev: any, formData: FormData) {
   const formTags: string = formData.get("tags") as string;
+  const user: string = formData.get("user") as string;
+
   if (formTags == "") {
     redirect("/tags");
   }
@@ -60,6 +62,8 @@ export async function handleUploadForm(prev: any, formData: FormData) {
   const title: string = formData.get("title") as string;
   const formTags: string = formData.get("tags") as string;
   const upload: File | string = formData.get("upload") as File | string;
+  const user: string = formData.get("user") as string;
+
   const destSrc = process.env.UPLOADS_DIR;
   if (destSrc == undefined) {
     throw new Error("Missing ENV variable: UPLOADS_DIR");
