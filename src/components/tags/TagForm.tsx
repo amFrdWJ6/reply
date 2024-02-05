@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useFormState } from "react-dom";
+import { useSession } from "next-auth/react";
 import { handleTagForm } from "@/lib/actions";
 import TagRules from "./form/TagRules";
 import StagedTags from "./form/StagedTags";
@@ -10,6 +11,8 @@ export default function TagForm() {
   const [_, formAction] = useFormState(handleTagForm, null);
   const [stagedTags, setStagedTags] = useState<string[]>([]);
   const [inputTag, setInputTag] = useState<string>("");
+  const { data: session } = useSession();
+  const username: string = session!.user!.name!;
 
   return (
     <form
@@ -52,6 +55,7 @@ export default function TagForm() {
         </button>
       </div>
       <input type="hidden" name="tags" value={stagedTags} />
+      <input type="hidden" name="user" value={username} />
 
       <StagedTags stagedTags={stagedTags} setStagedTags={setStagedTags} />
     </form>

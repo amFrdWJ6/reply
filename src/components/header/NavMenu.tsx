@@ -6,11 +6,15 @@ import {
   DeleteIcon,
   HamburgerMenu,
   HomeIcon,
+  LogIcon,
   TagIcon,
   UploadIcon,
 } from "../icons/svg";
+import { useSession } from "next-auth/react";
+import { SignIn, SignOut } from "../common/AuthButtons";
 
 function Menu() {
+  const { data: session } = useSession();
   return (
     <>
       <Link href={`/`}>
@@ -22,6 +26,10 @@ function Menu() {
       <Link href={`/tags`}>
         <TagIcon />
       </Link>
+      <Link href={`/log`}>
+        <LogIcon />
+      </Link>
+      {session ? <SignOut /> : <SignIn />}
     </>
   );
 }

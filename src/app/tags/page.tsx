@@ -1,8 +1,11 @@
-import TagForm from "@/components/tags/TagForm";
+import { auth } from "@/lib/auth";
 import { GetAllTags } from "@/lib/db/queries";
 import { RTag } from "@/lib/db/schema";
+import TagForm from "@/components/tags/TagForm";
+import LoginRequired from "@/components/common/LoginRequired";
 
 export default async function Tags() {
+  const session = await auth();
   const allTags = await GetAllTags();
   const listTags = allTags
     .sort((a: RTag, b: RTag) => {
@@ -26,7 +29,7 @@ export default async function Tags() {
         </div>
         <div className="block w-20 md:hidden"></div>
       </div>
-      <TagForm />
+      {session ? <TagForm /> : <LoginRequired action="add tags" />}
     </>
   );
 }

@@ -9,12 +9,14 @@ import { v4 as uuidv4 } from "uuid";
 import { DOWNLOAD_TIMEOUT, MAX_FILE_SIZE_BYTES } from "./const";
 import {
   AddTagsToReply,
+  CreateLog,
   CreateReply,
   CreateTag,
   GetAllTags,
   GetTagsIDs,
 } from "./db/queries";
 import { isFileFormatAllowed, isURLFileFormatAllowed } from "./utils";
+import { signIn, signOut } from "./auth";
 
 export async function handleSearchForm(prev: any, formData: FormData) {
   const formTags: string = formData.get("tags") as string;
@@ -33,6 +35,8 @@ export async function handleSearchForm(prev: any, formData: FormData) {
 
 export async function handleTagForm(prev: any, formData: FormData) {
   const formTags: string = formData.get("tags") as string;
+  const user: string = formData.get("user") as string;
+
   if (formTags == "") {
     redirect("/tags");
   }
@@ -49,7 +53,8 @@ export async function handleTagForm(prev: any, formData: FormData) {
   if (validatedTags.length == 0) {
     redirect("/tags");
   }
-  await CreateTag(validatedTags);
+  const tags_ids = await CreateTag(validatedTags);
+  await CreateLog(user, "added tag", undefined, tags_ids);
   revalidatePath("/tags");
   revalidatePath("/upload");
   redirect(`/tags`);
@@ -59,6 +64,8 @@ export async function handleUploadForm(prev: any, formData: FormData) {
   const title: string = formData.get("title") as string;
   const formTags: string = formData.get("tags") as string;
   const upload: File | string = formData.get("upload") as File | string;
+  const user: string = formData.get("user") as string;
+
   const destSrc = process.env.UPLOADS_DIR;
   if (destSrc == undefined) {
     throw new Error("Missing ENV variable: UPLOADS_DIR");
@@ -78,7 +85,9 @@ export async function handleUploadForm(prev: any, formData: FormData) {
       const reply = await CreateReply(title, result.fileName);
       if (reply != null) {
         await AddTagsToReply(reply.id, tags);
+        await CreateLog(user, "added reply", reply.id, undefined);
         revalidatePath("/");
+        revalidatePath("/log");
         redirect("/");
       } else {
         await unlink(result.fileName);
@@ -99,7 +108,9 @@ export async function handleUploadForm(prev: any, formData: FormData) {
       const reply = await CreateReply(title, result.fileName);
       if (reply != null) {
         await AddTagsToReply(reply.id, tags);
+        await CreateLog(user, "added reply", reply.id);
         revalidatePath("/");
+        revalidatePath("/log");
         redirect("/");
       } else {
         await unlink(result.fileName);
@@ -202,4 +213,13 @@ async function UploadFile(
       console.log(err);
       return { type: "error", message: err.message } as ResultError;
     });
+}
+
+// Auth
+export async function handleSignIn() {
+  return await signIn("github");
+}
+
+export async function handleSignOut() {
+  return await signOut();
 }
