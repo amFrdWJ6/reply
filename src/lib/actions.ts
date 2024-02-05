@@ -15,6 +15,7 @@ import {
   GetTagsIDs,
 } from "./db/queries";
 import { isFileFormatAllowed, isURLFileFormatAllowed } from "./utils";
+import { signIn, signOut } from "./auth";
 
 export async function handleSearchForm(prev: any, formData: FormData) {
   const formTags: string = formData.get("tags") as string;
@@ -202,4 +203,13 @@ async function UploadFile(
       console.log(err);
       return { type: "error", message: err.message } as ResultError;
     });
+}
+
+// Auth
+export async function handleSignIn() {
+  return await signIn("github");
+}
+
+export async function handleSignOut() {
+  return await signOut();
 }

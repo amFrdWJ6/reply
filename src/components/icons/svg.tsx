@@ -192,3 +192,58 @@ export function CopyLinkIcon() {
     </svg>
   );
 }
+
+export function LoginIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="30"
+      height="30"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#ED7D31"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+      strokeLinejoin="bevel"
+    >
+      <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3" />
+    </svg>
+  );
+}
+
+export function LogoutIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="30"
+      height="30"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#ED7D31"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+      strokeLinejoin="bevel"
+    >
+      <path d="M10 3H6a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h4M16 17l5-5-5-5M19.8 12H9" />
+    </svg>
+  );
+}
+
+export function LoadingIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="30"
+      height="30"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#ED7D31"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+      strokeLinejoin="bevel"
+      className="animate-spin"
+    >
+      <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
+    </svg>
+  );
+}
