@@ -14,7 +14,8 @@ export function SignIn() {
       <button
         type="submit"
         title="Sign In with GitHub"
-        onClick={() => {
+        onClick={(event) => {
+          event.stopPropagation();
           setLoading(true);
         }}
       >
@@ -33,7 +34,8 @@ export function SignOut() {
       <button
         type="submit"
         title="Sign Out"
-        onClick={() => {
+        onClick={(event) => {
+          event.stopPropagation();
           setLoading(true);
         }}
       >
