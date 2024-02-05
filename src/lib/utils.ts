@@ -1,6 +1,6 @@
 import { allowed_file_formats } from "./const";
 
-export async function ImageLoader(src: string) {
+export function ImageLoader(src: string) {
   return `http://localhost:3000/api/reply?f=${src}`;
 }
 
