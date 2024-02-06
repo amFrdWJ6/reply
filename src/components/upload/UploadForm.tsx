@@ -74,44 +74,47 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
   };
 
   return (
-    <form
-      action={formAction}
-      className="flex w-full flex-col items-center gap-4"
-    >
-      <p
-        aria-live="polite"
-        className="w-full text-center text-2xl text-red-500"
+    <div className="flex flex-row">
+      <form
+        action={formAction}
+        className="flex w-full flex-col items-center gap-4"
       >
-        {formState?.message}
-      </p>
-      <TitleInput />
-      <hr className="w-11/12 border-b border-primary" />
-      <div className="flex w-1/2 flex-col items-center gap-4">
-        <SourceSelect sourceType={sourceType} setSourceType={setSourceType} />
+        <p
+          aria-live="polite"
+          className="w-full text-center text-2xl text-red-500"
+        >
+          {formState?.message}
+        </p>
+        <TitleInput />
+        <hr className="w-11/12 border-b border-primary" />
+        <div className="flex w-1/2 flex-col items-center gap-4">
+          <SourceSelect sourceType={sourceType} setSourceType={setSourceType} />
 
-        <div className="w-full">
-          {sourceType === SourceType.LOCAL ? (
-            <FileInput handleFileInput={handleFileInput} isError={isError} />
-          ) : (
-            <URLInput handleURLInput={handleURLInput} />
-          )}
+          <div className="w-full">
+            {sourceType === SourceType.LOCAL ? (
+              <FileInput handleFileInput={handleFileInput} isError={isError} />
+            ) : (
+              <URLInput handleURLInput={handleURLInput} />
+            )}
+          </div>
         </div>
-      </div>
 
-      <hr className="w-11/12 border-b border-primary" />
+        <hr className="w-11/12 border-b border-primary" />
 
-      <Tags
-        stagedTags={stagedTags}
-        availableTags={availableTags}
-        listStagedTags={listStagedTags}
-      />
-      <input type="hidden" name="user" value={username} />
+        <Tags
+          stagedTags={stagedTags}
+          availableTags={availableTags}
+          listStagedTags={listStagedTags}
+        />
+        <input type="hidden" name="user" value={username} />
 
-      <SubmitUploadButton
-        stagedTags={stagedTags}
-        selectedFile={selectedFile}
-        selectedURL={selectedURL}
-      />
-    </form>
+        <SubmitUploadButton
+          stagedTags={stagedTags}
+          selectedFile={selectedFile}
+          selectedURL={selectedURL}
+        />
+      </form>
+      <div className="block w-10 md:hidden"></div>
+    </div>
   );
 }

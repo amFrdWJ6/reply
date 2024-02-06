@@ -34,15 +34,18 @@ export default async function Log({ params }: { params: { page: number } }) {
   });
 
   return (
-    <div className="flex w-full flex-col">
-      <h1 className="text-xl text-primary">Logs</h1>
-      {listOfLogs}
-      <Pagination
-        urlPath="log"
-        currentPage={params.page}
-        prevPage={params.page > 0}
-        nextPage={nextPageLogs.length > 0}
-      />
+    <div className="flex flex-row">
+      <div className="flex w-full flex-col">
+        <h1 className="text-xl text-primary">Logs</h1>
+        {listOfLogs}
+        <Pagination
+          urlPath="log"
+          currentPage={params.page}
+          prevPage={params.page > 0}
+          nextPage={nextPageLogs.length > 0}
+        />
+      </div>
+      <div className="block w-10 md:hidden"></div>
     </div>
   );
 }
