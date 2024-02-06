@@ -13,6 +13,7 @@ import Tags from "./form/Tags";
 import TitleInput from "./form/TitleInput";
 import UnpickedTag from "../common/form/UnpickedTag";
 import URLInput from "./form/URLInput";
+import SubmitButton from "./form/SubmitButton";
 
 export enum SourceType {
   LOCAL = "local",
@@ -100,17 +101,11 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
       />
       <input type="hidden" name="user" value={username} />
 
-      <button
-        type="submit"
-        className={`${stagedTags.length == 0 || (selectedFile == null && selectedURL == "") ? "bg-secondary" : "bg-primary"} rounded-xl p-4 text-xl shadow-xl`}
-        disabled={
-          stagedTags.length == 0 || (selectedFile == null && selectedURL == "")
-        }
-      >
-        {stagedTags.length == 0 || (selectedFile == null && selectedURL == "")
-          ? "Choose a file & tags"
-          : "Upload a new reply!"}
-      </button>
+      <SubmitButton
+        stagedTags={stagedTags}
+        selectedFile={selectedFile}
+        selectedURL={selectedURL}
+      />
     </form>
   );
 }
