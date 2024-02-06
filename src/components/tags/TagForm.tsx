@@ -10,6 +10,7 @@ import SubmitButton from "./form/SubmitTagsButton";
 
 export default function TagForm() {
   const [formState, formAction] = useFormState(handleTagForm, null);
+  const [stagedTags, setStagedTags] = useState<Array<string>>([]);
   const [inputTag, setInputTag] = useState<string>("");
   const { data: session } = useSession();
   const username: string = session!.user!.name!;
