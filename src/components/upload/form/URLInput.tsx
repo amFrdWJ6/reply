@@ -19,7 +19,7 @@ export default function URLInput({
         aria-describedby="url_help"
         onChange={handleURLInput}
         placeholder="http://urfavsite.dev/hilariousmeme.webp"
-        className="w-full rounded-md bg-secondary p-2 placeholder:text-quaternary focus:outline-none focus:ring-0"
+        className="w-full rounded-md bg-secondary p-2 text-primary placeholder:text-quaternary focus:bg-tertiary focus:outline-none focus:ring-0"
         required
       />
       <p className="text-center text-sm text-secondary" id="url_help">
