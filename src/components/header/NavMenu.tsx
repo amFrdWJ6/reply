@@ -46,7 +46,7 @@ export default function NavMenu() {
         {isHamburgerMenuOpen ? (
           <>
             <DeleteIcon color="#ED7D31" size={30} />
-            <div className="fixed top-14 z-30 flex flex-col gap-4">
+            <div className="fixed right-1 top-14 z-30 flex flex-col gap-4 rounded-md bg-tertiary p-2">
               <Menu />
             </div>
           </>
