@@ -115,6 +115,7 @@ async function CreateDBRecords(
   if (reply != null) {
     const tagsToReply = await AddTagsToReply(reply.id, tags);
     if (tagsToReply == null) {
+      console.log(`New reply without tags added. Reply ID: ${reply.id}`);
       return {
         type: "error",
         message: `Failed to add tags to your new reply`,
