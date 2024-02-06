@@ -101,9 +101,10 @@ export async function AddTagsToReply(reply_id: number, tags: RTag[]) {
   });
 
   try {
-    db.insert(tblTagToReply).values(newTagsToReply).run();
+    return db.insert(tblTagToReply).values(newTagsToReply).returning().all();
   } catch (error) {
     console.log(error);
+    return null;
   }
 }
 

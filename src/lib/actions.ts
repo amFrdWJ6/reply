@@ -113,8 +113,16 @@ async function CreateDBRecords(
 ) {
   const reply = await CreateReply(title, fileName);
   if (reply != null) {
-    await AddTagsToReply(reply.id, tags);
+    const tagsToReply = await AddTagsToReply(reply.id, tags);
+    if (tagsToReply == null) {
+      return {
+        type: "error",
+        message: `Failed to add tags to your new reply`,
+      };
+    }
+
     await CreateLog(user, "added reply", reply.id, undefined);
+
     revalidatePath("/");
     revalidatePath("/log");
     redirect("/");
