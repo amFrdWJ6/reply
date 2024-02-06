@@ -10,7 +10,7 @@ type TReply = {
 };
 
 export default async function Reply({ reply }: { reply: TReply }) {
-  const src_path = await ImageLoader(reply.fileName);
+  const src_path = ImageLoader(reply.fileName);
 
   return (
     <figure key={reply.id} className="relative h-auto w-64 break-inside-avoid">
