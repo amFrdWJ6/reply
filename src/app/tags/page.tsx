@@ -27,7 +27,7 @@ export default async function Tags() {
           <h1 className="text-2xl text-tertiary">Available tags:</h1>
           <div className="flex flex-row flex-wrap gap-2 p-2">{listTags}</div>
         </div>
-        <div className="block w-20 md:hidden"></div>
+        <div className="block w-10 md:hidden"></div>
       </div>
       {session ? <TagForm /> : <LoginRequired action="add tags" />}
     </>
