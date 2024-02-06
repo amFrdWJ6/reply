@@ -13,7 +13,7 @@ import Tags from "./form/Tags";
 import TitleInput from "./form/TitleInput";
 import UnpickedTag from "../common/form/UnpickedTag";
 import URLInput from "./form/URLInput";
-import SubmitButton from "./form/SubmitButton";
+import SubmitUploadButton from "./form/SubmitUploadButton";
 
 export enum SourceType {
   LOCAL = "local",
@@ -107,7 +107,7 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
       />
       <input type="hidden" name="user" value={username} />
 
-      <SubmitButton
+      <SubmitUploadButton
         stagedTags={stagedTags}
         selectedFile={selectedFile}
         selectedURL={selectedURL}

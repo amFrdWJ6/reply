@@ -2,7 +2,7 @@
 
 import { useFormStatus } from "react-dom";
 
-export default function SubmitButton({
+export default function SubmitUploadButton({
   stagedTags,
   selectedFile,
   selectedURL,
@@ -12,7 +12,6 @@ export default function SubmitButton({
   selectedURL: string;
 }) {
   const { pending } = useFormStatus();
-
   const upload_msg = pending ? "Processing..." : "Upload a new reply!";
 
   return (
