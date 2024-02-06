@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { handleTagForm } from "@/lib/actions";
 import TagRules from "./form/TagRules";
 import StagedTags from "./form/StagedTags";
+import SubmitButton from "./form/SubmitTagsButton";
 
 export default function TagForm() {
   const [_, formAction] = useFormState(handleTagForm, null);
@@ -47,12 +48,7 @@ export default function TagForm() {
             }
           }}
         />
-        <button
-          type="submit"
-          className={`${stagedTags.length == 0 ? "rounded-br" : null} flex h-10 w-32 items-center justify-center bg-primary text-tertiary`}
-        >
-          Submit tags
-        </button>
+        <SubmitButton stagedTags={stagedTags} />
       </div>
       <input type="hidden" name="tags" value={stagedTags} />
       <input type="hidden" name="user" value={username} />
