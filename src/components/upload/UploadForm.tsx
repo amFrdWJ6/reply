@@ -21,7 +21,7 @@ export enum SourceType {
 }
 
 export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
-  const [_, formAction] = useFormState(handleUploadForm, null);
+  const [formState, formAction] = useFormState(handleUploadForm, null);
   const [sourceType, setSourceType] = useState<SourceType>(SourceType.LOCAL);
   const [stagedTags, setStagedTags] = useState<Array<string>>([]);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -78,6 +78,12 @@ export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
       action={formAction}
       className="flex w-full flex-col items-center gap-4"
     >
+      <p
+        aria-live="polite"
+        className="w-full text-center text-2xl text-red-500"
+      >
+        {formState?.message}
+      </p>
       <TitleInput />
       <hr className="w-11/12 border-b border-primary" />
       <div className="flex w-1/2 flex-col items-center gap-4">
