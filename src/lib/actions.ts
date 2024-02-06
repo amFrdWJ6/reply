@@ -52,7 +52,10 @@ export async function handleTagForm(prev: any, formData: FormData) {
     .filter((tag) => /^[a-z_]+$/.test(tag.name))
     .filter((tag) => !allTags.map((dbtag) => dbtag.name).includes(tag.name));
   if (validatedTags.length == 0) {
-    redirect("/tags");
+    return {
+      type: "error",
+      message: `None of submitted tags were viable`,
+    };
   }
   const tags_ids = await CreateTag(validatedTags);
   await CreateLog(user, "added tag", undefined, tags_ids);

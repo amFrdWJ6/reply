@@ -9,8 +9,7 @@ import StagedTags from "./form/StagedTags";
 import SubmitButton from "./form/SubmitTagsButton";
 
 export default function TagForm() {
-  const [_, formAction] = useFormState(handleTagForm, null);
-  const [stagedTags, setStagedTags] = useState<string[]>([]);
+  const [formState, formAction] = useFormState(handleTagForm, null);
   const [inputTag, setInputTag] = useState<string>("");
   const { data: session } = useSession();
   const username: string = session!.user!.name!;
@@ -54,6 +53,12 @@ export default function TagForm() {
       <input type="hidden" name="user" value={username} />
 
       <StagedTags stagedTags={stagedTags} setStagedTags={setStagedTags} />
+      <p
+        aria-live="polite"
+        className="w-full text-center text-2xl text-red-500"
+      >
+        {formState?.message}
+      </p>
     </form>
   );
 }
