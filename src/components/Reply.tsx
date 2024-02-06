@@ -17,7 +17,14 @@ export default async function Reply({ reply }: { reply: TReply }) {
       <figcaption className="absolute top-0 w-full overflow-hidden truncate text-nowrap bg-primary p-1 text-sm">
         {reply.title}
       </figcaption>
-      <Image src={src_path} alt="" width={256} height={256} />
+      <Image
+        src={src_path}
+        alt={reply.title}
+        width={0}
+        height={0}
+        sizes="100vw"
+        className="h-auto w-full"
+      />
       <Footer url={src_path} tags={reply.tags.split(",")} />
     </figure>
   );
