@@ -64,7 +64,7 @@ export async function CreateTag(tags: { name: string }[]) {
   try {
     return db.insert(tblTag).values(tags).returning({ id: tblTag.id }).all();
   } catch (error) {
-    console.log("");
+    console.log("Failed to create tags: ", tags);
   }
 }
 
