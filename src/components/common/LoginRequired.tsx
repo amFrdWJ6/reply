@@ -1,18 +1,23 @@
-import { LogIcon, LoginIcon } from "../icons/svg";
+import IconsExplained from "./IconsExplained";
 
 export default async function LoginRequired({ action }: { action: string }) {
   return (
-    <div className="flex w-full flex-col gap-2 text-xl">
-      <p>Hey, memelord! You have to be signed in to {action}.</p>
-      <p className="flex flex-row items-center gap-2 text-xl">
-        Click <LoginIcon /> in menu (top-right) to sign in with your GitHub
-        account.
-      </p>
-      <p className="flex flex-row items-center">
-        <span className="pr-2 text-primary">Be aware!</span> Your actions
-        (adding tag or reply) are recorded and visible to anyone. See log by
-        clicking on <LogIcon /> in menu.
-      </p>
-    </div>
+    <>
+      <div className="flex flex-row">
+        <div className="flex w-full flex-col gap-2 text-xl">
+          <p>Hey, memelord! You have to be signed in to {action}.</p>
+          <p>Click in menu (top-right) to sign in with your GitHub account.</p>
+          <span className="pr-2 text-primary">Be aware!</span>
+          <p className="flex flex-row items-center">
+            Your actions (adding tag or reply) are recorded and visible to
+            anyone. See log by clicking on in menu.
+          </p>
+        </div>
+        <div className="block w-10 md:hidden"></div>
+      </div>
+      <div className="mt-4 flex w-full justify-center">
+        <IconsExplained />
+      </div>
+    </>
   );
 }
