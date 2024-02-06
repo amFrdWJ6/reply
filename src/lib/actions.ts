@@ -58,7 +58,9 @@ export async function handleTagForm(prev: any, formData: FormData) {
     };
   }
   const tags_ids = await CreateTag(validatedTags);
-  await CreateLog(user, "added tag", undefined, tags_ids);
+  if (tags_ids != undefined) {
+    await CreateLog(user, "added tag", tags_ids!);
+  }
   revalidatePath("/tags");
   revalidatePath("/upload");
   redirect(`/tags`);
@@ -122,7 +124,7 @@ async function CreateDBRecords(
       };
     }
 
-    await CreateLog(user, "added reply", reply.id, undefined);
+    await CreateLog(user, "added reply", reply.id);
 
     revalidatePath("/");
     revalidatePath("/log");

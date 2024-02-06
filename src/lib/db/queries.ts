@@ -135,11 +135,10 @@ export async function GetLogs(page: number, limit: number = 10) {
 export async function CreateLog(
   who: string,
   action: string,
-  reply_id?: number,
-  tag_ids?: { id: number }[],
+  id: number | { id: number }[],
 ) {
-  if (tag_ids && tag_ids.length > 0) {
-    for (let tag of tag_ids) {
+  if (Array.isArray(id) && id.length > 0) {
+    for (let tag of id) {
       const newLog: WLog = {
         who: who,
         action: action,
@@ -152,11 +151,11 @@ export async function CreateLog(
         console.log(error);
       }
     }
-  } else {
+  } else if (typeof id === "number") {
     const newLog: WLog = {
       who: who,
       action: action,
-      reply_id: reply_id,
+      reply_id: id,
     };
 
     try {
@@ -164,5 +163,7 @@ export async function CreateLog(
     } catch (error) {
       console.log(error);
     }
+  } else {
+    console.error("ID parameter was not provided for CreateLog function");
   }
 }
