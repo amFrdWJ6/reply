@@ -1,0 +1,14 @@
+services:
+  reply:
+    build: .
+    container_name: reply
+    image: reply:latest
+    ports:
+      - 3000:3000
+    volumes:
+      - database:/app/data
+      - uploads:/app/public/uploads
+
+volumes:
+  database:
+  uploads:
