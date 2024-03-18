@@ -21,7 +21,7 @@ export type RTag = InferSelectModel<typeof tblTag>;
 export type WTag = InferInsertModel<typeof tblTag>;
 
 export const tblTagToReply = sqliteTable(
-  "tag_top_reply",
+  "tag_to_reply",
   {
     reply_id: integer("reply_id", { mode: "number" })
       .notNull()
