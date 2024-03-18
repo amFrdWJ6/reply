@@ -3,9 +3,10 @@
 ## Prod
 
 1. Edit AUTH in .env
-2. Create reply.db (first time with \*, then apply only version greater then your current)
+2. Generate SQL & create reply.db
 
 ```sh
+npm run generate
 sqlite3 reply.db <drizzle/0*sql
 ```
 
