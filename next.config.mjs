@@ -8,6 +8,12 @@ const nextConfig = {
         port: '3000',
         pathname: '/api/reply/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'reply.hovinka.cz',
+        port: '443',
+        pathname: '/api/reply/**',
+      },
     ],
   },
   output: "standalone",
