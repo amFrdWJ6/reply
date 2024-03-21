@@ -1,4 +1,4 @@
-export default function Figure({ tags }: { tags: Array<string> }) {
+export default function Tags({ tags }: { tags: Array<string> }) {
   const listTags = tags.map((tag) => (
     <a
       href={`/?tags=${tag}`}
