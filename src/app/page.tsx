@@ -6,7 +6,7 @@ import {
 } from "@/lib/db/queries";
 import Reply from "@/components/Reply";
 
-async function ValidateTagsFromURLQuery(searchParamsTags: string) {
+async function validateTagsFromURLQuery(searchParamsTags: string) {
   const allTags = await getAllTags();
   const availableTags = allTags.map((tag) => tag.name);
   const queriedTags = searchParamsTags.split(",");
@@ -29,7 +29,7 @@ export default async function ShowQueriedReplies({
   const replies =
     searchParams.tags != undefined
       ? await getAllRepliesByTags(
-          await ValidateTagsFromURLQuery(searchParams.tags),
+          await validateTagsFromURLQuery(searchParams.tags),
         )
       : await getLatestReplies();
 
