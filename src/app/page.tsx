@@ -21,6 +21,18 @@ async function validateTagsFromURLQuery(searchParamsTags: string) {
   return validatedTags;
 }
 
+async function NullMessage() {
+  return (
+    <div className="flex flex-col justify-start">
+      <p className="text-tertiary">
+        H-h. There is a <span className="text-6xl text-primary">null</span> of
+        replies with those tags.
+      </p>
+      <p>Did you break it ?! ಠ_ಠ</p>
+    </div>
+  );
+}
+
 export default async function ShowQueriedReplies({
   searchParams,
 }: {
@@ -34,15 +46,7 @@ export default async function ShowQueriedReplies({
       : await getLatestReplies();
 
   if (replies == null) {
-    return (
-      <div className="flex flex-col justify-start">
-        <p className="text-tertiary">
-          H-h. There is a <span className="text-6xl text-primary">null</span> of
-          replies with those tags.
-        </p>
-        <p>Did you break it ?! ಠ_ಠ</p>
-      </div>
-    );
+    return <NullMessage />;
   }
 
   const listOfReplies = replies.map((reply) => (
