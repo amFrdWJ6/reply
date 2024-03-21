@@ -3,7 +3,7 @@
 import { useFormState } from "react-dom";
 import { useSearchParams, usePathname } from "next/navigation";
 import { useState } from "react";
-import { handleSearchForm } from "@/lib/actions";
+import { handleSearchForm } from "./actions";
 import type { RTag } from "@/lib/db/schema";
 import ArrowIcons from "./form/ArrowIcons";
 import FilterTagsInput from "./form/FilterTagsInput";

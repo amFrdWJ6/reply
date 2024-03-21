@@ -19,21 +19,6 @@ import { RTag } from "./db/schema";
 import { isFileFormatAllowed, isURLFileFormatAllowed } from "./utils";
 import { signIn, signOut } from "@/auth";
 
-export async function handleSearchForm(prev: any, formData: FormData) {
-  const formTags: string = formData.get("tags") as string;
-  if (formTags == "") {
-    redirect("/");
-  }
-  const allTags = await GetAllTags();
-  const tags: string | string[] = formTags.includes(",")
-    ? formTags.split(",")
-    : formTags;
-  const validatedTags = allTags
-    .filter((tag) => tags.includes(tag.name))
-    .map((tag) => tag.name);
-  redirect(`/?tags=${validatedTags}`);
-}
-
 export async function handleTagForm(prev: any, formData: FormData) {
   const formTags: string = formData.get("tags") as string;
   const user: string = formData.get("user") as string;
