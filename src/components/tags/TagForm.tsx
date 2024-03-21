@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useFormState } from "react-dom";
-import { handleTagForm } from "@/lib/actions";
+import { handleTagForm } from "./actions";
 import TagRules from "./form/TagRules";
 import StagedTags from "./form/StagedTags";
 import SubmitButton from "./form/SubmitTagsButton";
