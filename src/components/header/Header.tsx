@@ -3,7 +3,7 @@ import Logo from "./Logo";
 import NavMenu from "./NavMenu";
 import SearchForm from "./SearchForm";
 import { placeholders } from "@/lib/const";
-import { GetAllTags } from "@/lib/db/queries";
+import { getAllTags } from "@/lib/db/queries";
 
 async function SearchFormSkeleton() {
   return (
@@ -12,7 +12,7 @@ async function SearchFormSkeleton() {
 }
 
 export default async function Header() {
-  const allTags = await GetAllTags();
+  const allTags = await getAllTags();
   const placeholder =
     placeholders[Math.floor(Math.random() * placeholders.length)];
 

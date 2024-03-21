@@ -1,10 +1,10 @@
 import Pagination from "@/components/common/Pagination";
-import { GetLogs } from "@/lib/db/queries";
+import { getLogs } from "@/lib/db/queries";
 import { ImageLoader } from "@/lib/utils";
 
 export default async function Log({ params }: { params: { page: number } }) {
-  const logs = await GetLogs(params.page);
-  const nextPageLogs = await GetLogs(+params.page + +1);
+  const logs = await getLogs(params.page);
+  const nextPageLogs = await getLogs(+params.page + +1);
 
   const listOfLogs = logs.map((log) => {
     return (

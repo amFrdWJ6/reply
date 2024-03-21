@@ -1,6 +1,6 @@
 "use server";
 
-import { GetAllTags } from "@/lib/db/queries";
+import { getAllTags } from "@/lib/db/queries";
 import { redirect } from "next/navigation";
 
 export async function handleSearchForm(prev: any, formData: FormData) {
@@ -8,7 +8,7 @@ export async function handleSearchForm(prev: any, formData: FormData) {
   if (formTags == "") {
     redirect("/");
   }
-  const allTags = await GetAllTags();
+  const allTags = await getAllTags();
   const tags: string | string[] = formTags.includes(",")
     ? formTags.split(",")
     : formTags;

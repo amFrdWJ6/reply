@@ -15,7 +15,7 @@ import { and, eq, inArray, isNotNull, sql } from "drizzle-orm";
 const sqlite = new Database("data/reply.db");
 const db = drizzle(sqlite);
 
-export async function GetAllRepliesByTags(tags: Array<string>) {
+export async function getAllRepliesByTags(tags: Array<string>) {
   // Get reply.id rows, where tag.name is in array of tags
   const replyIDs = db
     .selectDistinct({ id: tblTagToReply.reply_id })
@@ -45,7 +45,7 @@ export async function GetAllRepliesByTags(tags: Array<string>) {
     .all();
 }
 
-export async function GetLatestReplies() {
+export async function getLatestReplies() {
   return db
     .select({
       id: tblReply.id,
@@ -60,7 +60,7 @@ export async function GetLatestReplies() {
     .all();
 }
 
-export async function CreateTag(tags: { name: string }[]) {
+export async function createTag(tags: { name: string }[]) {
   try {
     return db.insert(tblTag).values(tags).returning({ id: tblTag.id }).all();
   } catch (error) {
@@ -68,15 +68,15 @@ export async function CreateTag(tags: { name: string }[]) {
   }
 }
 
-export async function GetAllTags() {
+export async function getAllTags() {
   return db.select().from(tblTag).all();
 }
 
-export async function GetTagsIDs(tags: string[]) {
+export async function getTagsIDs(tags: string[]) {
   return db.select().from(tblTag).where(inArray(tblTag.name, tags)).all();
 }
 
-export async function CreateReply(title: string, filePath: string) {
+export async function createReply(title: string, filePath: string) {
   const newReply: WReply = {
     title: title,
     fileName: filePath,
@@ -95,7 +95,7 @@ export async function CreateReply(title: string, filePath: string) {
   }
 }
 
-export async function AddTagsToReply(reply_id: number, tags: RTag[]) {
+export async function addTagsToReply(reply_id: number, tags: RTag[]) {
   const newTagsToReply: WTagToReply[] = tags.map((tag) => {
     return { reply_id: reply_id, tag_id: tag.id };
   });
@@ -108,7 +108,7 @@ export async function AddTagsToReply(reply_id: number, tags: RTag[]) {
   }
 }
 
-export async function GetLogs(page: number, limit: number = 10) {
+export async function getLogs(page: number, limit: number = 10) {
   return db
     .select({
       id: tblLog.id,
@@ -132,7 +132,7 @@ export async function GetLogs(page: number, limit: number = 10) {
     .all();
 }
 
-export async function CreateLog(
+export async function createLog(
   who: string,
   action: string,
   id: number | { id: number }[],
@@ -164,6 +164,6 @@ export async function CreateLog(
       console.log(error);
     }
   } else {
-    console.error("ID parameter was not provided for CreateLog function");
+    console.error("ID parameter was not provided for createLog function");
   }
 }

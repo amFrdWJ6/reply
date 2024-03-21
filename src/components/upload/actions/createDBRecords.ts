@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { unlink } from "fs/promises";
-import { AddTagsToReply, CreateLog, CreateReply } from "@/lib/db/queries";
+import { addTagsToReply, createLog, createReply } from "@/lib/db/queries";
 import { RTag } from "@/lib/db/schema";
 
 export async function createDBRecords(
@@ -10,9 +10,9 @@ export async function createDBRecords(
   user: string,
   tags: RTag[],
 ) {
-  const reply = await CreateReply(title, fileName);
+  const reply = await createReply(title, fileName);
   if (reply != null) {
-    const tagsToReply = await AddTagsToReply(reply.id, tags);
+    const tagsToReply = await addTagsToReply(reply.id, tags);
     if (tagsToReply == null) {
       console.log(`New reply without tags added. Reply ID: ${reply.id}`);
       return {
@@ -21,7 +21,7 @@ export async function createDBRecords(
       };
     }
 
-    await CreateLog(user, "added reply", reply.id);
+    await createLog(user, "added reply", reply.id);
 
     revalidatePath("/");
     revalidatePath("/log");

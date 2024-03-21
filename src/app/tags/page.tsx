@@ -1,12 +1,12 @@
 import { auth } from "@/auth";
-import { GetAllTags } from "@/lib/db/queries";
+import { getAllTags } from "@/lib/db/queries";
 import { RTag } from "@/lib/db/schema";
 import TagForm from "@/components/tags/TagForm";
 import LoginRequired from "@/components/common/LoginRequired";
 
 export default async function Tags() {
   const session = await auth();
-  const allTags = await GetAllTags();
+  const allTags = await getAllTags();
   const listTags = allTags
     .sort((a: RTag, b: RTag) => {
       return a.name.localeCompare(b.name);

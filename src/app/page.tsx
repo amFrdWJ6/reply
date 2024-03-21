@@ -1,13 +1,13 @@
 import { redirect } from "next/navigation";
 import {
-  GetAllRepliesByTags,
-  GetAllTags,
-  GetLatestReplies,
+  getAllRepliesByTags,
+  getAllTags,
+  getLatestReplies,
 } from "@/lib/db/queries";
 import Reply from "@/components/Reply";
 
 async function ValidateTagsFromURLQuery(searchParamsTags: string) {
-  const allTags = await GetAllTags();
+  const allTags = await getAllTags();
   const availableTags = allTags.map((tag) => tag.name);
   const queriedTags = searchParamsTags.split(",");
 
@@ -28,10 +28,10 @@ export default async function ShowQueriedReplies({
 }) {
   const replies =
     searchParams.tags != undefined
-      ? await GetAllRepliesByTags(
+      ? await getAllRepliesByTags(
           await ValidateTagsFromURLQuery(searchParams.tags),
         )
-      : await GetLatestReplies();
+      : await getLatestReplies();
 
   if (replies == null) {
     return (

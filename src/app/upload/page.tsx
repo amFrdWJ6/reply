@@ -1,11 +1,11 @@
 import { auth } from "@/auth";
-import { GetAllTags } from "@/lib/db/queries";
+import { getAllTags } from "@/lib/db/queries";
 import LoginRequired from "@/components/common/LoginRequired";
 import UploadForm from "@/components/upload/UploadForm";
 
 export default async function Upload() {
   const session = await auth();
-  const allTags = await GetAllTags();
+  const allTags = await getAllTags();
   return (
     <>
       {session && session.user?.name ? (

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { CreateLog, CreateTag, GetAllTags } from "@/lib/db/queries";
+import { createLog, createTag, getAllTags } from "@/lib/db/queries";
 
 export async function handleTagForm(prev: any, formData: FormData) {
   const formTags: string = formData.get("tags") as string;
@@ -11,7 +11,7 @@ export async function handleTagForm(prev: any, formData: FormData) {
   if (formTags == "") {
     redirect("/tags");
   }
-  const allTags = await GetAllTags();
+  const allTags = await getAllTags();
   const validatedTags: { name: string }[] = (
     formTags.includes(",") ? formTags.split(",") : [formTags]
   )
@@ -27,9 +27,9 @@ export async function handleTagForm(prev: any, formData: FormData) {
       message: `None of submitted tags were viable`,
     };
   }
-  const tags_ids = await CreateTag(validatedTags);
+  const tags_ids = await createTag(validatedTags);
   if (tags_ids != undefined) {
-    await CreateLog(user, "added tag", tags_ids!);
+    await createLog(user, "added tag", tags_ids!);
   }
   revalidatePath("/tags");
   revalidatePath("/upload");
