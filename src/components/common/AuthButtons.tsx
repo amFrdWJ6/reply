@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useFormState } from "react-dom";
 import { LoadingIcon, LoginIcon, LogoutIcon } from "../icons/svg";
-import { handleSignIn, handleSignOut } from "@/lib/actions";
+import { handleSignIn, handleSignOut } from "./actions";
 
 export function SignIn() {
   const [_, formAction] = useFormState(handleSignIn, null);

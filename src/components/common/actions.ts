@@ -2,7 +2,6 @@
 
 import { signIn, signOut } from "@/auth";
 
-// Auth
 export async function handleSignIn() {
   return await signIn("github");
 }
