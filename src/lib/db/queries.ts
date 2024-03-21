@@ -108,7 +108,7 @@ export async function addTagsToReply(reply_id: number, tags: RTag[]) {
   }
 }
 
-export async function getLogs(page: number, limit: number = 10) {
+export async function getLogs(page: number, limit: number = 50) {
   return db
     .select({
       id: tblLog.id,
