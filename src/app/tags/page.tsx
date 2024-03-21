@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+import { auth } from "@/auth";
 import { GetAllTags } from "@/lib/db/queries";
 import { RTag } from "@/lib/db/schema";
 import TagForm from "@/components/tags/TagForm";

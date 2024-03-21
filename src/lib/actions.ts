@@ -17,7 +17,7 @@ import {
 } from "./db/queries";
 import { RTag } from "./db/schema";
 import { isFileFormatAllowed, isURLFileFormatAllowed } from "./utils";
-import { signIn, signOut } from "./auth";
+import { signIn, signOut } from "@/auth";
 
 export async function handleSearchForm(prev: any, formData: FormData) {
   const formTags: string = formData.get("tags") as string;

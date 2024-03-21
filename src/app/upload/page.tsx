@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+import { auth } from "@/auth";
 import { GetAllTags } from "@/lib/db/queries";
 import LoginRequired from "@/components/common/LoginRequired";
 import UploadForm from "@/components/upload/UploadForm";
