@@ -15,9 +15,9 @@ export default async function Pagination({
   return (
     <div className="flex flex-row items-center justify-center gap-4 p-2">
       {prevPage ? (
-        <a href={`/${urlPath}/${currentPage - 1}`}>
+        <Link href={`/${urlPath}/${currentPage - 1}`}>
           <PrevPageIcon />
-        </a>
+        </Link>
       ) : (
         <PrevPageIcon color="#4F4A45" />
       )}
