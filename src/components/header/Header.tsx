@@ -4,6 +4,7 @@ import NavMenu from "./NavMenu";
 import SearchForm from "./SearchForm";
 import { placeholders } from "@/lib/const";
 import { GetAllTags } from "@/lib/db/queries";
+import { auth } from "@/auth";
 
 async function HeaderSkeleton() {
   return (
@@ -15,6 +16,7 @@ async function HeaderSkeleton() {
 }
 
 export default async function Header() {
+  const session = await auth();
   const allTags = await GetAllTags();
   return (
     <header className="flex h-12 w-full flex-row justify-between p-1 md:max-w-4xl lg:max-w-5xl">
@@ -27,6 +29,7 @@ export default async function Header() {
           }
         />
         <NavMenu />
+        <NavMenu session={session} />
       </Suspense>
     </header>
   );
