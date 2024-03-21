@@ -2,7 +2,7 @@
 
 import { ChangeEvent, useState } from "react";
 import { useFormState } from "react-dom";
-import { handleUploadForm } from "@/lib/actions";
+import { handleUploadForm } from "./actions/handleUploadForm";
 import { RTag } from "@/lib/db/schema";
 import { isFileFormatAllowed } from "@/lib/utils";
 import FileInput from "./form/FileInput";

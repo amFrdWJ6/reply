@@ -163,24 +163,6 @@ async function DownloadFile(
     };
   }
 }
-
-async function UploadFile(
-  file: File,
-  destDir: string,
-): Promise<ResultSuccess | ResultError> {
-  const fileName = [uuidv4(), file.type.split("/").pop()].join(".");
-  const destFilePath = `${destDir}/${fileName}`;
-
-  return await writeFile(destFilePath, Buffer.from(await file.arrayBuffer()))
-    .then(() => {
-      return { type: "success", fileName: fileName } as ResultSuccess;
-    })
-    .catch((err: Error) => {
-      console.log(err);
-      return { type: "error", message: err.message } as ResultError;
-    });
-}
-
 // Auth
 export async function handleSignIn() {
   return await signIn("github");
