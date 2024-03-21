@@ -8,8 +8,8 @@ export default async function Upload() {
   const allTags = await GetAllTags();
   return (
     <>
-      {session ? (
-        <UploadForm allTags={allTags} />
+      {session && session.user?.name ? (
+        <UploadForm allTags={allTags} username={session.user.name} />
       ) : (
         <LoginRequired action="add reply" />
       )}

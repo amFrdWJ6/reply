@@ -2,7 +2,6 @@
 
 import { ChangeEvent, useState } from "react";
 import { useFormState } from "react-dom";
-import { useSession } from "next-auth/react";
 import { handleUploadForm } from "@/lib/actions";
 import { RTag } from "@/lib/db/schema";
 import { isFileFormatAllowed } from "@/lib/utils";
@@ -20,15 +19,19 @@ export enum SourceType {
   URL = "url",
 }
 
-export default function UploadForm({ allTags }: { allTags: Array<RTag> }) {
+export default function UploadForm({
+  allTags,
+  username,
+}: {
+  allTags: Array<RTag>;
+  username: string;
+}) {
   const [formState, formAction] = useFormState(handleUploadForm, null);
   const [sourceType, setSourceType] = useState<SourceType>(SourceType.LOCAL);
   const [stagedTags, setStagedTags] = useState<Array<string>>([]);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedURL, setSelectedURL] = useState<string>("");
   const [isError, setError] = useState<boolean>(false);
-  const { data: session } = useSession();
-  const username: string = session!.user!.name!;
 
   const availableTags = allTags
     .filter((tag) => !stagedTags.includes(tag.name))

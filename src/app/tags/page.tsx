@@ -26,7 +26,11 @@ export default async function Tags() {
         <h1 className="text-2xl text-tertiary">Available tags:</h1>
         <div className="flex flex-row flex-wrap gap-2 p-2">{listTags}</div>
       </div>
-      {session ? <TagForm /> : <LoginRequired action="add tags" />}
+      {session && session.user?.name ? (
+        <TagForm username={session.user.name} />
+      ) : (
+        <LoginRequired action="add tags" />
+      )}
     </>
   );
 }
