@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import {
   DeleteIcon,
   HamburgerMenu,
@@ -10,11 +10,10 @@ import {
   TagIcon,
   UploadIcon,
 } from "../icons/svg";
-import { useSession } from "next-auth/react";
 import { SignIn, SignOut } from "../common/AuthButtons";
+import { Session } from "next-auth";
 
-function Menu() {
-  const { data: session } = useSession();
+function Menu({ children }: { children: ReactNode }) {
   return (
     <>
       <Link href={`/`}>
@@ -29,12 +28,12 @@ function Menu() {
       <Link href={`/log`}>
         <LogIcon />
       </Link>
-      {session ? <SignOut /> : <SignIn />}
+      {children}
     </>
   );
 }
 
-export default function NavMenu() {
+export default function NavMenu({ session }: { session: Session | null }) {
   const [isHamburgerMenuOpen, setHamburgerMenuState] = useState<boolean>(false);
 
   return (
@@ -47,7 +46,7 @@ export default function NavMenu() {
           <>
             <DeleteIcon color="#ED7D31" size={30} />
             <div className="fixed right-1 top-14 z-30 flex flex-col gap-4 rounded-md bg-tertiary p-2">
-              <Menu />
+              <Menu>{session ? <SignOut /> : <SignIn />}</Menu>
             </div>
           </>
         ) : (
@@ -56,7 +55,7 @@ export default function NavMenu() {
       </div>
 
       <div className="hidden flex-row gap-2 md:flex">
-        <Menu />
+        <Menu>{session ? <SignOut /> : <SignIn />}</Menu>
       </div>
     </nav>
   );
