@@ -57,37 +57,6 @@ export async function handleUploadForm(prev: any, formData: FormData) {
     }
   }
 }
-
-async function CreateDBRecords(
-  title: string,
-  fileName: string,
-  user: string,
-  tags: RTag[],
-) {
-  const reply = await CreateReply(title, fileName);
-  if (reply != null) {
-    const tagsToReply = await AddTagsToReply(reply.id, tags);
-    if (tagsToReply == null) {
-      console.log(`New reply without tags added. Reply ID: ${reply.id}`);
-      return {
-        type: "error",
-        message: `Failed to add tags to your new reply`,
-      };
-    }
-
-    await CreateLog(user, "added reply", reply.id);
-
-    revalidatePath("/");
-    revalidatePath("/log");
-    redirect("/");
-  } else {
-    await unlink(fileName);
-    return {
-      type: "error",
-      message: `Failed to create DB record for new Reply`,
-    };
-  }
-}
 // Auth
 export async function handleSignIn() {
   return await signIn("github");
