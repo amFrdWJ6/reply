@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { NextPageIcon, PrevPageIcon } from "../icons/svg";
 
-export default async function Pagination({
+export default async function ServerPagination({
   urlPath,
   currentPage,
   prevPage = false,
