@@ -1,5 +1,6 @@
 import { getAllRepliesByTags, getLatestReplies } from "@/lib/db/queries";
 import Reply from "@/components/Reply";
+import ClientPagination from "@/components/common/ClientPagination";
 import { validateTags } from "@/lib/utils/server";
 
 async function NullMessage() {
@@ -28,13 +29,20 @@ export default async function ShowQueriedReplies({
     return <NullMessage />;
   }
 
-  const listOfReplies = replies.map((reply) => (
-    <Reply key={reply.id} reply={reply} />
-  ));
+  const page = searchParams.page ? parseInt(searchParams.page) : 0;
+  const limit = parseInt(process.env.APP_REPLY_PER_PAGE ?? "10");
+  const offset = page * limit;
+
+  const listOfReplies = replies
+    .slice(offset, offset + limit)
+    .map((reply) => <Reply key={reply.id} reply={reply} />);
 
   return (
-    <div className="columns-1 space-y-4 sm:columns-2 lg:columns-3 xl:columns-4">
-      {listOfReplies}
+    <div>
+      <div className="columns-1 space-y-4 sm:columns-2 lg:columns-3 xl:columns-4">
+        {listOfReplies}
+      </div>
+      <ClientPagination more={replies.length - (offset + limit) > 0} />
     </div>
   );
 }
