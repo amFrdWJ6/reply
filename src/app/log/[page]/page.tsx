@@ -19,7 +19,7 @@ const What = ({ what }: { what: string }) => (
 
 const Tag = ({ tag }: { tag: string }) => (
   <a
-    href={`${process.env.AUTH_URL ?? "http://localhost:3000"}/?tags=${tag}`}
+    href={`${process.env.BASE_URL ?? "http://localhost:3000"}/?tags=${tag}`}
     className="text-primary"
   >
     {tag}
