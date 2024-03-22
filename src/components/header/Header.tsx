@@ -17,7 +17,7 @@ export default async function Header() {
     placeholders[Math.floor(Math.random() * placeholders.length)];
 
   return (
-    <header className="flex h-12 w-full flex-row justify-between p-1 md:max-w-4xl lg:max-w-5xl">
+    <header className="flex h-12 w-full flex-row justify-between p-1 ">
       <Logo />
       <Suspense fallback={<SearchFormSkeleton />}>
         <SearchForm allTags={allTags} placeholder={placeholder} />

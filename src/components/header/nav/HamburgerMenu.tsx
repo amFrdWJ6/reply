@@ -10,7 +10,7 @@ export function HamburgerMenu({ session }: { session: Session | null }) {
 
   return (
     <div
-      className="flex flex-col rounded-md border-2 border-primary md:hidden"
+      className="flex flex-col rounded-md border-2 border-primary lg:hidden"
       onClick={() => setHamburgerMenuState(!isHamburgerMenuOpen)}
     >
       {isHamburgerMenuOpen ? (

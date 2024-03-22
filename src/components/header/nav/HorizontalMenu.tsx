@@ -5,7 +5,7 @@ import BaseMenu from "./BaseMenu";
 export async function HorizontalMenu() {
   const session = await auth();
   return (
-    <div className="hidden flex-row gap-2 md:flex">
+    <div className="hidden flex-row gap-2 lg:flex">
       <BaseMenu>{session ? <SignOut /> : <SignIn />}</BaseMenu>
     </div>
   );
