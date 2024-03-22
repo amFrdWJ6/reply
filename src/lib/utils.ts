@@ -1,7 +1,7 @@
 import { allowed_file_formats } from "./const";
 
-export function ImageLoader(src: string) {
-  return `http://localhost:3000/api/reply?f=${src}`;
+export function getReplyFromApi(src: string) {
+  return `${process.env.BASE_URL ?? "http://localhost:3000"}/api/reply?f=${src}`;
 }
 
 export function isFileFormatAllowed(file: File) {

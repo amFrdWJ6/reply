@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Footer from "./reply/Footer";
-import { ImageLoader } from "@/lib/utils";
+import { getReplyFromApi } from "@/lib/utils";
 
 type TReply = {
   id: number;
@@ -10,7 +10,7 @@ type TReply = {
 };
 
 export default async function Reply({ reply }: { reply: TReply }) {
-  const src_path = ImageLoader(reply.fileName);
+  const src_path = getReplyFromApi(reply.fileName);
 
   return (
     <figure key={reply.id} className="relative h-auto w-64 break-inside-avoid">

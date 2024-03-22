@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import ServerPagination from "@/components/common/ServerPagination";
 import { getLogs } from "@/lib/db/queries";
-import { ImageLoader } from "@/lib/utils";
+import { getReplyFromApi } from "@/lib/utils";
 
 const When = ({ when }: { when: string }) => (
   <span className="pr-2 text-secondary">{when}</span>
@@ -27,7 +27,7 @@ const Tag = ({ tag }: { tag: string }) => (
 );
 
 const File = ({ file }: { file: string }) => (
-  <a href={ImageLoader(file)} className="text-primary">
+  <a href={getReplyFromApi(file)} className="text-primary">
     {file}
   </a>
 );
