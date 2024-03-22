@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import Pagination from "@/components/common/Pagination";
+import ServerPagination from "@/components/common/ServerPagination";
 import { getLogs } from "@/lib/db/queries";
 import { ImageLoader } from "@/lib/utils";
 
@@ -62,7 +62,7 @@ export default async function Log({ params }: { params: { page: number } }) {
     <div className="flex w-full flex-col">
       <h1 className="text-xl text-primary">Logs</h1>
       {whoDidWhatList}
-      <Pagination
+      <ServerPagination
         urlPath="log"
         currentPage={params.page}
         prevPage={params.page > 0}
