@@ -11,7 +11,7 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'reply.hovinka.cz',
-        port: '443',
+        port: '',
         pathname: '/api/reply/**',
       },
     ],
