@@ -1,3 +1,4 @@
+import { getContentType } from "@/lib/utils/server";
 import { access, constants, readFile } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -16,9 +17,13 @@ export async function GET(req: NextRequest) {
   }
 
   const file = [destDir, fileName].join("/");
+  const contentType = await getContentType(fileName.split(".").pop());
+
   return await access(file, constants.F_OK)
     .then(async () => {
-      return new NextResponse(await readFile(file));
+      return new NextResponse(await readFile(file), {
+        headers: { "content-type": contentType },
+      });
     })
     .catch(async () => {
       return NextResponse.json(`File [${fileName}] does not exsits`, {

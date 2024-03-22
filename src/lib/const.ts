@@ -14,3 +14,4 @@ export const allowed_file_formats = new Map<string, string>([
 
 export const MAX_FILE_SIZE_BYTES = 4 * 1024 * 1024;
 export const DOWNLOAD_TIMEOUT = 5000;
+export const DEFAULT_CONTENT_TYPE = "application/octet-stream";
