@@ -11,9 +11,9 @@ export async function handleUploadForm(prev: any, formData: FormData) {
   const upload: File | string = formData.get("upload") as File | string;
   const user: string = formData.get("user") as string;
 
-  const destSrc = process.env.UPLOADS_DIR;
+  const destSrc = process.env.APP_UPLOADS_DIR;
   if (destSrc == undefined) {
-    throw new Error("Missing ENV variable: UPLOADS_DIR");
+    throw new Error("Missing ENV variable: APP_UPLOADS_DIR");
   }
 
   const tags = await getTagsIDs(formTags.split(","));
