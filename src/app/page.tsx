@@ -1,25 +1,6 @@
-import { redirect } from "next/navigation";
-import {
-  getAllRepliesByTags,
-  getAllTags,
-  getLatestReplies,
-} from "@/lib/db/queries";
+import { getAllRepliesByTags, getLatestReplies } from "@/lib/db/queries";
 import Reply from "@/components/Reply";
-
-async function validateTagsFromURLQuery(searchParamsTags: string) {
-  const allTags = await getAllTags();
-  const availableTags = allTags.map((tag) => tag.name);
-  const queriedTags = searchParamsTags.split(",");
-
-  const validatedTags = queriedTags.filter((tag) =>
-    availableTags.includes(tag),
-  );
-
-  if (validatedTags.length == 0) {
-    redirect("/");
-  }
-  return validatedTags;
-}
+import { validateTags } from "@/lib/utils/server";
 
 async function NullMessage() {
   return (
@@ -40,9 +21,7 @@ export default async function ShowQueriedReplies({
 }) {
   const replies =
     searchParams.tags != undefined
-      ? await getAllRepliesByTags(
-          await validateTagsFromURLQuery(searchParams.tags),
-        )
+      ? await getAllRepliesByTags(await validateTags(searchParams.tags))
       : await getLatestReplies();
 
   if (replies == null) {
