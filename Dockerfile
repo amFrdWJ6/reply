@@ -23,6 +23,8 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # This will do the trick, use the corresponding env file for each environment.
 # COPY .env.production.sample .env.production
+RUN apk add --no-cache sqlite
+RUN mkdir data && npm run generate && set -- drizzle/0000*.sql && sqlite3 data/reply.db <$1
 RUN npm run build
 
 # 3. Production image, copy all the files and run next
