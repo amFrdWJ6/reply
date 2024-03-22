@@ -25,7 +25,7 @@ export default async function RootLayout({
         className={`${lato.className} flex w-full flex-col items-center justify-center bg-quaternary`}
       >
         <Header />
-        <main className="z-0 flex w-full max-w-5xl flex-col items-center p-2">
+        <main className="container z-0 flex w-full flex-col items-center p-2">
           {children}
         </main>
       </body>
