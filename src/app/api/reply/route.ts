@@ -10,7 +10,12 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const file = [process.env.UPLOADS_DIR, fileName].join("/");
+  const destDir = process.env.APP_UPLOADS_DIR;
+  if (destDir == undefined) {
+    throw new Error("Missing ENV variable: APP_UPLOADS_DIR");
+  }
+
+  const file = [destDir, fileName].join("/");
   return await access(file, constants.F_OK)
     .then(async () => {
       return new NextResponse(await readFile(file));
