@@ -7,6 +7,7 @@ export const placeholders = [
 
 export const allowed_file_formats = new Map<string, string>([
   ["webp", "image/webp"],
+  ["webm", "video/webm"],
   ["jpg", "image/jpeg"],
   ["png", "image/png"],
   ["gif", "image/gif"],
