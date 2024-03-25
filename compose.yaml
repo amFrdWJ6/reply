@@ -13,6 +13,9 @@ services:
 
 networks:
   demo:
+    name: demo
+    driver: bridge
+    external: true
 
 volumes:
   database:
