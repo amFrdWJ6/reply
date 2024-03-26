@@ -10,7 +10,7 @@ import {
   tblTag,
   tblTagToReply,
 } from "./schema";
-import { and, eq, inArray, isNotNull, sql } from "drizzle-orm";
+import { and, desc, eq, inArray, isNotNull, sql } from "drizzle-orm";
 
 const sqlite = new Database("data/reply.db");
 const db = drizzle(sqlite);
@@ -129,6 +129,7 @@ export async function getLogs(page: number, limit: number = 50) {
     )
     .limit(limit)
     .offset(page * limit)
+    .orderBy(desc(tblLog.id))
     .all();
 }
 
